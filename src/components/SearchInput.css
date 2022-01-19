@@ -1,0 +1,25 @@
+.search-input-container input{
+  border-width: 0px;
+}
+.search-input-container input::placeholder{
+  color: #000;
+  font-weight: 600;
+}
+.search-input-container input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #000;
+  font-weight: 600;
+}
+
+.search-input-container input::-ms-input-placeholder { /* Microsoft Edge */
+  color: #000;
+  font-weight: 600;
+}
+.search-input-container input:focus{
+  border-width: 0px;
+}
+.search-input-container input::after{
+  border-width: 0px;
+}
+.search-input-container input::before{
+  border-width: 0px;
+}

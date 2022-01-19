@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('./statics/fonts/Poppins/Poppins-Regular.ttf');
+}
+* {
+  box-sizing: content-box;
+  /* font-size: 14px; */
+  font-family: 'Poppins', -apple-system, Helvetica, 'Open Sans', Tahoma, Arial, sans-serif;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  max-width: 1600px;
+  margin: auto;
+}
+
+/* Ratio 1.38 */
+
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+h1 {
+  font-size: 17px;
+}
+h2 {
+  font-size: 14px;
+}
+
+p {
+  font-size: 12px;
+}
