@@ -13,20 +13,21 @@ body {
   margin: 0;
   max-width: 1600px;
   margin: auto;
+  background-image: url(./statics/img/cardBack.png);
 }
 
-/* Ratio 1.38 */
+/* Ratio 1.38   #409A1E   #*/
 
-html {
+/* html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 ::-webkit-scrollbar {
   width: 0px;
-}
+} */
 
 h1 {
-  font-size: 17px;
+  font-size: 15px;
 }
 h2 {
   font-size: 14px;

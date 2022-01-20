@@ -7,10 +7,8 @@ import { configure } from 'axios-hooks';
 import './index.css';
 import App from './App';
 import reportWebVitals from 'reportWebVitals';
-import UserContextProvider from 'context/UserContext';
 import appTheme from 'common/theme';
 import axiosClient from 'common/api';
-import FooterPositionContextProvider from 'context/FooterPositionContext';
 
 // import 'react-awesome-slider/dist/styles.css';
 
@@ -20,11 +18,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={appTheme}>
       <BrowserRouter>
-        <UserContextProvider>
-          <FooterPositionContextProvider>
-            <App />
-          </FooterPositionContextProvider>
-        </UserContextProvider>
+        <App />
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
