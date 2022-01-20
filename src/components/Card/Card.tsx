@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { EVoteType } from 'pages/Home/Home';
 import acceptBlack from 'statics/img/accept-black.png';
 import acceptGreen from 'statics/img/accept-green.png';
 import rejectBlack from 'statics/img/reject-black.png';
@@ -71,7 +72,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export type StatusType = 'none' | 'up' | 'down';
+export type StatusType =
+  | EVoteType.NONE
+  | EVoteType.THUMB_UP
+  | EVoteType.THUMB_DOWN;
 
 type CardType = {
   value: string;
@@ -90,7 +94,7 @@ const Card: React.FC<CardType> = ({
   icon,
   person,
   value,
-  status = 'none',
+  status = EVoteType.NONE,
   onVote = (type: StatusType) => {},
 }) => {
   const styles = useStyles({ color });
@@ -113,23 +117,35 @@ const Card: React.FC<CardType> = ({
           flexDirection="row"
         >
           <img
-            src={Boolean(status === 'up') ? acceptGreen : acceptBlack}
+            src={
+              Boolean(status === EVoteType.THUMB_UP) ? acceptGreen : acceptBlack
+            }
             alt="up"
             width={25}
             height={25}
             style={{ marginRight: 20, cursor: 'pointer' }}
             onClick={() => {
-              onVote(status === 'up' ? 'none' : 'up');
+              onVote(
+                status === EVoteType.THUMB_UP
+                  ? EVoteType.NONE
+                  : EVoteType.THUMB_UP
+              );
             }}
           />
           <img
-            src={Boolean(status === 'down') ? rejectRed : rejectBlack}
+            src={
+              Boolean(status === EVoteType.THUMB_DOWN) ? rejectRed : rejectBlack
+            }
             alt="down"
             width={25}
             height={25}
             style={{ cursor: 'pointer' }}
             onClick={() => {
-              onVote(status === 'down' ? 'none' : 'down');
+              onVote(
+                status === EVoteType.THUMB_DOWN
+                  ? EVoteType.NONE
+                  : EVoteType.THUMB_DOWN
+              );
             }}
           />
         </Box>

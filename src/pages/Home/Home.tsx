@@ -1,10 +1,8 @@
-import { Box } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Card } from 'components';
-import { StatusType } from 'components/Card/Card';
 import { useCallback, useMemo, useState } from 'react';
-// import useAxios from 'axios-hooks';
-import hitler from 'statics/img/hitler.jpg';
+import useAxios from 'axios-hooks';
 import CARD_LIST from './cardList';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,98 +27,94 @@ export enum EVoteType {
 type IVote = {
   voter: string;
   voteType: EVoteType;
-  categories: ECategory;
 };
 
 type PeopleType = {
   name?: string;
   picture?: string;
   votes?: IVote[];
-  categories: ECategory[];
-  id: number;
+  categories: ECategory;
+  id: string;
 };
 
-const personList: PeopleType[] = [];
-
-for (let i = 0; i < 52; i++) {
-  personList.push({
-    name: `Person ${i + 1}`,
-    id: i,
-    picture: hitler,
-    votes: [],
-    categories: [],
-  });
-}
-
-const voteConvert: any = {
-  up: EVoteType.THUMB_UP,
-  down: EVoteType.THUMB_DOWN,
-  none: EVoteType.NONE,
+type resultType = {
+  limit: number;
+  page: number;
+  totalPages: number;
+  totalResults: number;
+  results: PeopleType[];
 };
-
-const VOTER = '1234';
 
 function Home() {
-  const [allPeople, setAllApeople] = useState(personList);
-  const [update, setUpdate] = useState(false);
+  const [code, setCode] = useState('');
   const styles = useStyles();
-  // const [{ data: hotelList = {} as any, loading: loadingHotel }] = useAxios({
-  //   url: '/hotels?limit=16&page=1&shuffle=true',
-  // });
+  const [
+    {
+      data: criminalsList = {} as resultType,
+      // error: criminalError,
+      loading: criminalsLoading,
+    },
+  ] = useAxios<resultType>({
+    url: '/criminals?limit=52&page=1',
+  });
 
-  // if (loadingHotel) return <p>Loading...</p>;
+  const [, updateVote] = useAxios(
+    {
+      method: 'PATCH',
+    },
+    { manual: true }
+  );
 
   const handleVote = useCallback(
-    (newStatus: StatusType, id: number, category: ECategory) => {
-      const temp = allPeople;
-      const index = temp.findIndex((person) => person.id === id);
-      if (index < 0) return;
-      let voteIndex: number | undefined = temp[index].votes!.findIndex(
-        (item) => item.voter === VOTER
-      );
-      if (voteIndex < 0) {
-        temp[index].votes?.push({
-          categories: category,
-          voteType: voteConvert[newStatus],
-          voter: VOTER,
-        });
-      } else {
-        temp[index].votes![voteIndex] = {
-          categories: category,
-          voteType: voteConvert[newStatus],
-          voter: VOTER,
-        };
-      }
-      setAllApeople(temp);
-      setUpdate(!update);
+    (newStatus: EVoteType, id: string) => {
+      updateVote({
+        url: `/criminals/${id}`,
+        data: {
+          voter: code,
+          voteType: newStatus,
+        },
+      });
+      // const temp = allPeople;
+      // const index = temp.findIndex((person) => person.id === id);
+      // if (index < 0) return;
+      // let voteIndex: number | undefined = temp[index].votes!.findIndex(
+      //   (item) => item.voter === code
+      // );
+      // if (voteIndex < 0) {
+      //   temp[index].votes?.push({
+      //     // categories: category,
+      //     voteType: newStatus,
+      //     voter: code,
+      //   });
+      // } else {
+      //   temp[index].votes![voteIndex] = {
+      //     // categories: category,
+      //     voteType: newStatus,
+      //     voter: code,
+      //   };
+      // }
+      // setAllApeople(temp);
+      // setUpdate(!update);
     },
-    [allPeople, update]
+    [code, updateVote]
   );
 
   const getStatus = useMemo(
-    () => (id: number) => {
-      const index = allPeople.findIndex((person) => person.id === id);
-      if (index < 0) return 'none';
-      const vote = allPeople[index].votes?.find((item) => item.voter === VOTER);
-      if (!vote) return 'none';
-      switch (vote.voteType) {
-        case EVoteType.THUMB_DOWN:
-          return 'down';
-        case EVoteType.THUMB_UP:
-          return 'up';
-        case EVoteType.NONE:
-          return 'none';
-
-        default:
-          return 'none';
-      }
+    () => (id: string) => {
+      const index = criminalsList.results.findIndex((item) => item.id === id);
+      if (index < 0) return EVoteType.NONE;
+      const vote = criminalsList.results[index].votes?.find(
+        (item) => item.voter === code
+      );
+      if (!vote) return EVoteType.NONE;
+      return vote.voteType;
     },
-    [allPeople]
+    [code, criminalsList]
   );
 
   const orderedPeople = useMemo(
     () => () => {
-      return allPeople.sort((a, b) => {
+      return criminalsList.results.sort((a, b) => {
         const votesA = a.votes!.filter(
           (vote) => vote.voteType === EVoteType.THUMB_UP
         ).length;
@@ -135,12 +129,28 @@ function Home() {
         return 0;
       });
     },
-    [allPeople]
+    [criminalsList]
   );
+
+  const handleCodeChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setCode(e.target.value);
+    },
+    []
+  );
+
+  if (criminalsLoading) return <p>Loading...</p>;
 
   return (
     <Box>
-      <Box></Box>
+      <Box>
+        <TextField
+          id="filled-basic"
+          label="Filled"
+          variant="filled"
+          onChange={handleCodeChange}
+        />
+      </Box>
       <Box className={styles.cardContainer}>
         {orderedPeople().map(
           ({ categories, id, name, picture, votes }, idx) => (
@@ -151,9 +161,7 @@ function Home() {
               icon={CARD_LIST[idx]?.icon}
               status={getStatus(id)}
               person={{ image: picture!, name: name! }}
-              onVote={(newStatus) =>
-                handleVote(newStatus, id, ECategory.HUMANITY)
-              }
+              onVote={(newStatus) => handleVote(newStatus, id)}
             />
           )
         )}
