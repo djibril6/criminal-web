@@ -9,7 +9,7 @@ export const useIsMobile = () => {
   const isIos = Boolean(userAgent.match(/iPhone|iPad|iPod/i));
   const isOpera = Boolean(userAgent.match(/Opera Mini/i));
   const isWindows = Boolean(userAgent.match(/IEMobile/i));
-  const media = useMediaQuery(theme.breakpoints.down('xl'));
+  const media = useMediaQuery(theme.breakpoints.down('xs'));
 
   return isAndroid || isIos || isOpera || isWindows || media;
 };

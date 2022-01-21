@@ -1,10 +1,11 @@
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { EVoteType } from 'pages/Home/Home';
+import { EVoteType } from 'pages/Home/types';
 import acceptBlack from 'statics/img/accept-black.png';
 import acceptGreen from 'statics/img/accept-green.png';
 import rejectBlack from 'statics/img/reject-black.png';
 import rejectRed from 'statics/img/reject-red.png';
+import { StatusType } from './card.type';
 
 type StyleType = {
   color: string;
@@ -71,11 +72,6 @@ const useStyles = makeStyles((theme) => ({
     width: 20,
   },
 }));
-
-export type StatusType =
-  | EVoteType.NONE
-  | EVoteType.THUMB_UP
-  | EVoteType.THUMB_DOWN;
 
 type CardType = {
   value: string;
