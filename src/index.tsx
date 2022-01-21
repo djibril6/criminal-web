@@ -9,6 +9,7 @@ import App from './App';
 import reportWebVitals from 'reportWebVitals';
 import appTheme from 'common/theme';
 import axiosClient from 'common/api';
+import VoteContextProvider from 'context/VoteContext';
 
 // import 'react-awesome-slider/dist/styles.css';
 
@@ -18,7 +19,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={appTheme}>
       <BrowserRouter>
-        <App />
+        <VoteContextProvider>
+          <App />
+        </VoteContextProvider>
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,

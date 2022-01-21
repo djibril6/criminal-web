@@ -1,9 +1,13 @@
 import { Box, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Card } from 'components';
-import { useCallback, useMemo, useState } from 'react';
+import { Card, Loading } from 'components';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import useAxios from 'axios-hooks';
 import CARD_LIST from './cardList';
+import { useIsMobile } from 'common/hooks';
+import HomeMobile from './Home.mobile';
+import { ECategory, EVoteType, resultType } from './types';
+import { VoteContext } from 'context/VoteContext';
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
@@ -13,40 +17,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export enum ECategory {
-  HUMANITY = 'humanity',
-  NATURE = 'nature',
-}
-
-export enum EVoteType {
-  THUMB_UP = 'thumbUp',
-  THUMB_DOWN = 'thumbDown',
-  NONE = 'none',
-}
-
-type IVote = {
-  voter: string;
-  voteType: EVoteType;
-};
-
-type PeopleType = {
-  name?: string;
-  picture?: string;
-  votes?: IVote[];
-  categories: ECategory;
-  id: string;
-};
-
-type resultType = {
-  limit: number;
-  page: number;
-  totalPages: number;
-  totalResults: number;
-  results: PeopleType[];
-};
-
 function Home() {
-  const [code, setCode] = useState('');
+  const [selectedTab, setSelectedTab] = useState(ECategory.HUMANITY);
+  const { state } = useContext(VoteContext);
   const styles = useStyles();
   const [
     {
@@ -54,9 +27,8 @@ function Home() {
       // error: criminalError,
       loading: criminalsLoading,
     },
-  ] = useAxios<resultType>({
-    url: '/criminals?limit=52&page=1',
-  });
+    fetchCriminals,
+  ] = useAxios<resultType>({}, { manual: true });
 
   const [, updateVote] = useAxios(
     {
@@ -65,12 +37,25 @@ function Home() {
     { manual: true }
   );
 
+  const onTabSelected = useCallback(
+    (selected: ECategory) => () => {
+      setSelectedTab(selected);
+    },
+    []
+  );
+
+  useEffect(() => {
+    fetchCriminals({
+      url: `/criminals?limit=52&page=1&categories=${selectedTab}`,
+    });
+  }, [fetchCriminals, selectedTab]);
+
   const handleVote = useCallback(
     (newStatus: EVoteType, id: string) => {
       updateVote({
         url: `/criminals/${id}`,
         data: {
-          voter: code,
+          voter: state.code,
           voteType: newStatus,
         },
       });
@@ -96,25 +81,25 @@ function Home() {
       // setAllApeople(temp);
       // setUpdate(!update);
     },
-    [code, updateVote]
+    [state.code, updateVote]
   );
 
   const getStatus = useMemo(
     () => (id: string) => {
-      const index = criminalsList.results.findIndex((item) => item.id === id);
+      const index = criminalsList.results?.findIndex((item) => item.id === id);
       if (index < 0) return EVoteType.NONE;
       const vote = criminalsList.results[index].votes?.find(
-        (item) => item.voter === code
+        (item) => item.voter === state.code.code
       );
       if (!vote) return EVoteType.NONE;
       return vote.voteType;
     },
-    [code, criminalsList]
+    [state.code, criminalsList]
   );
 
   const orderedPeople = useMemo(
     () => () => {
-      return criminalsList.results.sort((a, b) => {
+      return criminalsList.results?.sort((a, b) => {
         const votesA = a.votes!.filter(
           (vote) => vote.voteType === EVoteType.THUMB_UP
         ).length;
@@ -134,14 +119,22 @@ function Home() {
 
   const handleCodeChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      setCode(e.target.value);
+      // updateCode(e.target.value);
     },
     []
   );
 
-  if (criminalsLoading) return <p>Loading...</p>;
+  const isMobile = useIsMobile();
 
-  return (
+  if (criminalsLoading) return <Loading />;
+
+  return isMobile ? (
+    <HomeMobile
+      criminals={orderedPeople()}
+      selectedTab={selectedTab}
+      onTabSelected={onTabSelected}
+    />
+  ) : (
     <Box>
       <Box>
         <TextField
