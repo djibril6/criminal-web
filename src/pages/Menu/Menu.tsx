@@ -16,11 +16,11 @@ const Menu: React.FC = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-start"
       padding="10px"
       height="100%"
     >
-      <Box width="102%" marginBottom={5}>
+      <Box width="102%" marginBottom={2}>
         <Typography color="primary" variant="subtitle1">
           Your
         </Typography>

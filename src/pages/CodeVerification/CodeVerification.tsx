@@ -79,6 +79,7 @@ const CodeVerification: React.FC = () => {
         .then((res) => {
           updateCode(res.data);
           updateIsCodeVerified(true);
+          setError('');
           navigate('/home');
         })
         .catch((error) => {
@@ -112,6 +113,7 @@ const CodeVerification: React.FC = () => {
       >
         Your voting code goes here
       </Typography>
+      {error && <Typography color="error">{error}</Typography>}
       <CodeInput
         fullWidth
         id="outlined-basic"
