@@ -3,7 +3,6 @@ import {
   Button,
   Typography,
   TextField,
-  InputAdornment,
   Snackbar,
   Alert,
   CircularProgress,
@@ -83,7 +82,7 @@ const CodeVerification: React.FC = () => {
           navigate('/home');
         })
         .catch((error) => {
-          setError(error.statusText);
+          setError('This code is not valid');
           updateIsCodeVerified(false);
           setOpen(true);
         });
@@ -106,11 +105,13 @@ const CodeVerification: React.FC = () => {
       padding="10px"
       height="95%"
     >
-      <Box marginBottom="10px" width="100%">
-        <Typography color="primary" variant="h2">
-          Your voting code
-        </Typography>
-      </Box>
+      <Typography
+        color="primary"
+        variant="h5"
+        style={{ padding: 20, textAlign: 'center' }}
+      >
+        Your voting code goes here
+      </Typography>
       <CodeInput
         fullWidth
         id="outlined-basic"
@@ -118,29 +119,8 @@ const CodeVerification: React.FC = () => {
         size="small"
         color="primary"
         placeholder="* * * * * * * * *  *"
-        style={{ borderRadius: 30 }}
+        style={{ borderRadius: 30, marginTop: 30 }}
         onChange={codeChange}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                width="120px"
-                height="35px"
-                bgcolor={customTheme.color.blue}
-                style={{ cursor: 'pointer' }}
-                onClick={handleSubmit}
-                color="#fff"
-                marginRight={-2}
-                borderRadius="0px 10px 10px 0px"
-              >
-                {loading ? <CircularProgress color="secondary" /> : 'Verify'}
-              </Box>
-            </InputAdornment>
-          ),
-        }}
       />
       <Box
         display="flex"
@@ -160,14 +140,27 @@ const CodeVerification: React.FC = () => {
 
       <Button
         fullWidth
-        color="primary"
+        color="success"
+        variant="contained"
+        style={{
+          marginTop: 10,
+          color: '#fff',
+        }}
+        onClick={handleSubmit}
+      >
+        Verify {loading && <CircularProgress />}
+      </Button>
+
+      <Button
+        fullWidth
+        color="error"
         variant="contained"
         style={{
           marginTop: 10,
         }}
         onClick={handleNavigation('/home')}
       >
-        Continue without verification
+        Ignore
       </Button>
 
       <Snackbar

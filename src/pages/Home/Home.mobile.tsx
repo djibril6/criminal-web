@@ -6,9 +6,8 @@ import { ECategory, PeopleType } from './types';
 import CARD_LIST from './cardList';
 import VoteCardList from 'components/VoteCardList';
 import { useCallback, useState } from 'react';
-import { customTheme } from 'common/theme';
 
-const tabHeight = 100;
+const tabHeight = 70;
 const useStyles = makeStyles((theme: Theme) => ({
   codeLabel: {
     marginBottom: 10,
@@ -21,49 +20,62 @@ const useStyles = makeStyles((theme: Theme) => ({
   tabsContent: {
     display: 'flex',
     justifyContent: 'space-around',
-    position: 'fixed',
-    left: 0,
-    top: 0,
-    zIndex: 1,
+    [theme.breakpoints.down('tablet')]: {
+      position: 'fixed',
+      left: 0,
+      top: 0,
+      zIndex: 1,
+      width: '100%',
+    },
+    [theme.breakpoints.up('laptop')]: {
+      width: '40%',
+      margin: 'auto',
+    },
     backgroundColor: theme.palette.background.default,
-    width: '100%',
     height: tabHeight,
-    padding: 5,
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   tab: {
-    width: 160,
-    height: tabHeight,
-    borderRadius: 39,
+    width: '50%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     cursor: 'pointer',
     fontSize: 15,
     fontWeight: 900,
+    color: theme.palette.primary.main,
   },
-  tab1: {
-    color: theme.palette.error.main,
-    border: `1px solid ${theme.palette.error.main}`,
-  },
-  tab2: {
-    color: theme.palette.secondary.main,
-    border: `1px solid ${theme.palette.secondary.main}`,
-  },
-  tabDisabled: {
-    color: customTheme.color.darkGrey,
-    border: `1px solid ${customTheme.color.grey}`,
+  tabSelected: {
+    color: '#fff',
+    backgroundColor: theme.palette.primary.main,
   },
   divider: {
     width: '80%',
     height: 2,
     margin: 'auto',
     backgroundColor: theme.palette.primary.main,
-    marginTop: tabHeight + 20,
+    [theme.breakpoints.down('tablet')]: {
+      marginTop: tabHeight + 20,
+    },
+    [theme.breakpoints.up('laptop')]: {
+      display: 'none',
+    },
   },
   criminalList: {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 1fr)',
-    gap: 10,
+
+    [theme.breakpoints.down('tablet')]: {
+      gap: 10,
+    },
+    [theme.breakpoints.up('tablet')]: {
+      gap: 15,
+    },
+    [theme.breakpoints.up('laptop')]: {
+      gap: 70,
+    },
     marginTop: 35,
   },
 }));
@@ -109,9 +121,7 @@ const HomeMobile: React.FC<HomeMobileType> = ({
         <Box
           className={classNames(
             styles.tab,
-            selectedTab === ECategory.HUMANITY
-              ? styles.tab1
-              : styles.tabDisabled
+            selectedTab === ECategory.HUMANITY ? styles.tabSelected : ''
           )}
           onClick={onTabSelected(ECategory.HUMANITY)}
         >
@@ -120,7 +130,7 @@ const HomeMobile: React.FC<HomeMobileType> = ({
         <Box
           className={classNames(
             styles.tab,
-            selectedTab === ECategory.NATURE ? styles.tab2 : styles.tabDisabled
+            selectedTab === ECategory.NATURE ? styles.tabSelected : ''
           )}
           onClick={onTabSelected(ECategory.NATURE)}
         >

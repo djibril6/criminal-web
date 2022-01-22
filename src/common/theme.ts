@@ -20,33 +20,33 @@ export const customTheme = {
     orangeLight: '#FEEFDF',
     red: '#fc5959',
     yellow: '#c2824c',
-    green: '#59fc69',
+    green: '#53be73',
   },
 };
 
-// declare module '@mui/material/styles' {
-//   interface BreakpointOverrides {
-//     xs: false;
-//     sm: false;
-//     md: false;
-//     lg: false;
-//     xl: false;
-//     mobile: true;
-//     tablet: true;
-//     laptop: true;
-//     desktop: true;
-//   }
-// }
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xs: false;
+    sm: false;
+    md: false;
+    lg: false;
+    xl: false;
+    mobile: true;
+    tablet: true;
+    laptop: true;
+    desktop: true;
+  }
+}
 
 const appTheme = createTheme({
-  // breakpoints: {
-  //   values: {
-  //     mobile: 0,
-  //     tablet: 640,
-  //     laptop: 1024,
-  //     desktop: 1200,
-  //   },
-  // },
+  breakpoints: {
+    values: {
+      mobile: 0,
+      tablet: 640,
+      laptop: 1024,
+      desktop: 1200,
+    },
+  },
   transitions: {
     duration: {
       shortest: 150,
@@ -81,6 +81,10 @@ const appTheme = createTheme({
       fontWeight: 600,
       lineHeight: '1.125rem',
     },
+    h5: {
+      fontSize: '27px',
+      fontWeight: 500,
+    },
     body1: {
       fontSize: '14px',
       fontWeight: 500,
@@ -93,6 +97,8 @@ const appTheme = createTheme({
     subtitle1: {
       fontSize: '52px',
       fontWeight: 900,
+      fontFamily: 'PoppinsBold',
+      lineHeight: '4rem',
     },
     subtitle2: {
       fontSize: '10px',

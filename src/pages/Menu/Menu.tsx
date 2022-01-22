@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +20,27 @@ const Menu: React.FC = () => {
       padding="10px"
       height="100%"
     >
+      <Box width="102%" marginBottom={5}>
+        <Typography color="primary" variant="subtitle1">
+          Your
+        </Typography>
+        <Typography color="primary" variant="subtitle1">
+          voice matter
+        </Typography>
+      </Box>
+
+      <Typography
+        variant="body1"
+        color="primary"
+        overflow="auto"
+        style={{ marginBottom: 40 }}
+      >
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim officia
+        exercitationem ex? Asperiores tempora reprehenderit ipsam magni pariatur
+        tempore assumenda incidunt, similique. Asperiores tempora reprehenderit
+        ipsam magni pariatur tempore assumenda incidunt, similique.
+      </Typography>
+
       <Button
         fullWidth
         color="primary"
@@ -31,9 +52,10 @@ const Menu: React.FC = () => {
       <Button
         fullWidth
         color="primary"
-        variant="contained"
+        variant="outlined"
         style={{
           marginTop: 10,
+          borderWidth: 3,
         }}
       >
         Play

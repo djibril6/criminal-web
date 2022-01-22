@@ -5,3 +5,4 @@ export { default as CardDetails } from './Card/CardDetails';
 export { default as VoteCard } from './VoteCard';
 export { default as Loading } from './Loading';
 export { default as ModalPage } from './ModalPage';
+export { default as VoteCardList } from './VoteCardList';
