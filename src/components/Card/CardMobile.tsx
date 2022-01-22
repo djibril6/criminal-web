@@ -1,13 +1,23 @@
-import { Box } from '@mui/material';
+import { Box, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import classNames from 'classnames';
 
 type StyleType = {
   color: string;
+  modal: boolean;
 };
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   card: {
     width: '100%',
-    height: 150,
+    [theme.breakpoints.down('tablet')]: {
+      height: 150,
+    },
+    [theme.breakpoints.up('tablet')]: {
+      height: (props: StyleType) => (props.modal ? '80%' : 250),
+    },
+    [theme.breakpoints.up('laptop')]: {
+      height: (props: StyleType) => (props.modal ? '80%' : 355),
+    },
     borderRadius: 10,
     border: (props: StyleType) => `1px solid ${props.color}`,
     position: 'relative',
@@ -17,10 +27,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff',
     cursor: 'pointer',
   },
-  topLeft: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
+
+  cornerText: {
     width: '20%',
     height: '20%',
     display: 'flex',
@@ -29,22 +37,26 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     color: (props: StyleType) => props.color,
     fontWeight: 500,
-    fontSize: 20,
+    [theme.breakpoints.down('tablet')]: {
+      fontSize: 20,
+    },
+    [theme.breakpoints.up('tablet')]: {
+      fontSize: (props: StyleType) => (props.modal ? 20 : 25),
+    },
+    [theme.breakpoints.up('laptop')]: {
+      fontSize: (props: StyleType) => (props.modal ? 20 : 58),
+    },
+  },
+  topLeft: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
   BottomRight: {
     position: 'absolute',
     bottom: 0,
     right: 0,
-    width: '20%',
-    height: '20%',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'column',
     transform: 'rotate(-180deg)',
-    fontWeight: 500,
-    fontSize: 20,
-    color: (props: StyleType) => props.color,
   },
   middle: {
     width: '60%',
@@ -60,8 +72,20 @@ const useStyles = makeStyles((theme) => ({
     height: '99%',
   },
   cardIcon: {
-    height: 10,
-    width: 10,
+    [theme.breakpoints.down('tablet')]: {
+      height: 10,
+      width: 10,
+    },
+    [theme.breakpoints.up('tablet')]: {
+      height: 15,
+      width: 15,
+      marginTop: -5,
+    },
+    [theme.breakpoints.up('laptop')]: {
+      height: (props: StyleType) => (props.modal ? 15 : 30),
+      width: (props: StyleType) => (props.modal ? 15 : 30),
+      marginTop: (props: StyleType) => (props.modal ? -5 : -10),
+    },
   },
 }));
 
@@ -73,6 +97,7 @@ type CardType = {
     image: string;
     name: string;
   };
+  modal?: boolean;
   onClick?: VoidFunction;
 };
 
@@ -81,16 +106,17 @@ const CardMobile: React.FC<CardType> = ({
   icon,
   person,
   value,
+  modal = false,
   onClick = () => {},
 }) => {
-  const styles = useStyles({ color });
+  const styles = useStyles({ color, modal });
 
   return (
     <Box className={styles.card} onClick={onClick}>
-      <Box className={styles.topLeft}>
+      <Box className={classNames(styles.topLeft, styles.cornerText)}>
         {value} <img src={icon} alt={value} className={styles.cardIcon} />
       </Box>
-      <Box className={styles.BottomRight}>
+      <Box className={classNames(styles.BottomRight, styles.cornerText)}>
         {value} <img src={icon} alt={value} className={styles.cardIcon} />
       </Box>
       <Box className={styles.middle}>

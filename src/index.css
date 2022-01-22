@@ -2,6 +2,10 @@
   font-family: 'Poppins';
   src: url('./statics/fonts/Poppins/Poppins-Regular.ttf');
 }
+@font-face {
+  font-family: 'PoppinsBold';
+  src: url('./statics/fonts/Poppins/Poppins-Bold.ttf');
+}
 * {
   box-sizing: content-box;
   /* font-size: 14px; */

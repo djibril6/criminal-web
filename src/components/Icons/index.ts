@@ -5,3 +5,6 @@ export { default as VoteIllustrationIcon } from './VoteIllustration';
 export { default as BackIllustrationIcon } from './BackIllustration';
 export { default as VoteText1Icon } from './VoteText1';
 export { default as VoteText2Icon } from './VoteText2';
+export { default as DesktopVoteIllustrationIcon } from './DesktopVoteIllustration';
+export { default as DesktopVoteText1Icon } from './DesktopVoteText1';
+export { default as DesktopVoteText2Icon } from './DesktopVoteText2';

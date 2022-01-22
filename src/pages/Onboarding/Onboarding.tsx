@@ -36,37 +36,17 @@ const Onboarding: React.FC = () => {
         height="100%"
         marginTop={5}
         position="relative"
+        display="flex"
+        justifyContent="flex-end"
+        flexDirection="column"
+        alignItems="center"
       >
-        <Box
-          position="absolute"
-          top="0%"
-          width="100%"
-          height="60%"
-          padding="15px"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="flex-start"
-        >
-          <Typography color="primary" variant="subtitle1">
-            Your voice matter
-          </Typography>
+        <Typography color="primary" variant="subtitle1">
+          App Name
+        </Typography>
 
-          <Typography
-            variant="body1"
-            color="primary"
-            maxHeight={120}
-            overflow="auto"
-          >
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim
-            officia exercitationem ex? Asperiores tempora reprehenderit ipsam
-            magni pariatur tempore assumenda incidunt, similique. Asperiores
-            tempora reprehenderit ipsam magni pariatur tempore assumenda
-            incidunt, similique.
-          </Typography>
-        </Box>
-        <Box position="absolute" bottom="12%" width="100%" height="40%">
-          <Box width={390} height={350} position="relative" margin="auto">
+        <Box width="100%" marginTop={20} marginBottom={10}>
+          <Box width={390} height={450} position="relative" margin="auto">
             <VoteText1Icon
               style={{
                 width: 147,
@@ -94,6 +74,7 @@ const Onboarding: React.FC = () => {
                 height: '100%',
                 position: 'absolute',
                 zIndex: 1,
+                bottom: 0,
               }}
             />
             <BackIllustrationIcon

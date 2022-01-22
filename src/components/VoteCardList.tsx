@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, {
   useCallback,
@@ -16,17 +16,29 @@ import { VoteContext } from 'context/VoteContext';
 
 let timer: NodeJS.Timeout;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     display: 'inline-flex',
     flexWrap: 'unset',
     flexDirection: 'row',
-    width: '100%',
-    height: '100%',
     overflowX: 'auto',
     scrollbarWidth: 'none',
     '&::-webkit-scrollbar': {
       display: 'none',
+    },
+    [theme.breakpoints.down('tablet')]: {
+      width: '100%',
+      height: '100%',
+    },
+    [theme.breakpoints.up('tablet')]: {
+      width: '100%',
+      height: '100%',
+    },
+    [theme.breakpoints.up('laptop')]: {
+      width: '100%',
+      height: '80%',
+      borderRadius: 10,
+      overflow: 'hidden',
     },
   },
 }));
@@ -34,9 +46,14 @@ const useStyles = makeStyles((theme) => ({
 type SwiperProps = {
   initialIndex: number;
   criminals: PeopleType[];
+  onCloseModal?: VoidFunction;
 };
 
-const VoteCardList: React.FC<SwiperProps> = ({ initialIndex, criminals }) => {
+const VoteCardList: React.FC<SwiperProps> = ({
+  initialIndex,
+  criminals,
+  onCloseModal = () => {},
+}) => {
   const styles = useStyles();
   const boxContainer = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(initialIndex);
@@ -131,6 +148,7 @@ const VoteCardList: React.FC<SwiperProps> = ({ initialIndex, criminals }) => {
             rank={idx + 1}
             onVote={handleVote(item.id)}
             status={getStatus(item.id)}
+            onCloseModal={onCloseModal}
           />
         </Box>
       ))}
