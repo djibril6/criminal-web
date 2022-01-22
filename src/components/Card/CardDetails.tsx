@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import classNames from 'classnames';
 import { EVoteType } from 'pages/Home/types';
 import { StatusType } from './card.type';
 
@@ -8,9 +9,10 @@ type StyleType = {
 };
 const useStyles = makeStyles((theme) => ({
   card: {
-    width: '100%',
-    height: 450,
+    width: 250,
+    height: 300,
     borderRadius: 10,
+    margin: 'auto',
     border: (props: StyleType) => `1px solid ${props.color}`,
     position: 'relative',
     display: 'flex',
@@ -19,10 +21,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff',
     cursor: 'pointer',
   },
-  topLeft: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
+  cornerText: {
     width: '20%',
     height: '20%',
     display: 'flex',
@@ -31,22 +30,18 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     color: (props: StyleType) => props.color,
     fontWeight: 500,
-    fontSize: 63,
+    fontSize: 30,
+  },
+  topLeft: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
   BottomRight: {
     position: 'absolute',
     bottom: 0,
     right: 0,
-    width: '20%',
-    height: '20%',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'column',
     transform: 'rotate(-180deg)',
-    fontWeight: 500,
-    fontSize: 63,
-    color: (props: StyleType) => props.color,
   },
   middle: {
     width: '60%',
@@ -64,12 +59,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
   },
   image: {
-    width: '99%',
-    height: '99%',
+    width: '100%',
+    height: '100%',
   },
   cardIcon: {
-    height: 32,
-    width: 32,
+    height: 20,
+    width: 20,
+    marginTop: -5,
   },
 }));
 
@@ -97,10 +93,10 @@ const CardDetails: React.FC<CardType> = ({
 
   return (
     <Box className={styles.card}>
-      <Box className={styles.topLeft}>
+      <Box className={classNames(styles.topLeft, styles.cornerText)}>
         {value} <img src={icon} alt={value} className={styles.cardIcon} />
       </Box>
-      <Box className={styles.BottomRight}>
+      <Box className={classNames(styles.BottomRight, styles.cornerText)}>
         {value} <img src={icon} alt={value} className={styles.cardIcon} />
       </Box>
       <Box className={styles.middle}>

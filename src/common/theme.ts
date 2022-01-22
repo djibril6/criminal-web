@@ -95,7 +95,7 @@ const appTheme = createTheme({
       fontWeight: 400,
     },
     subtitle1: {
-      fontSize: '52px',
+      fontSize: '3.25rem',
       fontWeight: 900,
       fontFamily: 'PoppinsBold',
       lineHeight: '4rem',

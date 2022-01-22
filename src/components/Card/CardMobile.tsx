@@ -68,8 +68,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     border: (props: StyleType) => `2px solid ${props.color}`,
   },
   image: {
-    width: '99%',
-    height: '99%',
+    width: '100%',
+    height: '100%',
   },
   cardIcon: {
     [theme.breakpoints.down('tablet')]: {

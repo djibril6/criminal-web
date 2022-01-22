@@ -23,12 +23,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'row',
     overflowX: 'auto',
     scrollbarWidth: 'none',
+    scrollSnapType: 'x proximity',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
     [theme.breakpoints.down('tablet')]: {
       width: '100%',
       height: '100%',
+      overflowY: 'hidden',
     },
     [theme.breakpoints.up('tablet')]: {
       width: '100%',
@@ -109,7 +111,7 @@ const VoteCardList: React.FC<SwiperProps> = ({
       clearTimeout(timer);
       timer = setTimeout(() => {
         scroll();
-      }, 200);
+      }, 60);
     },
     [scroll]
   );
