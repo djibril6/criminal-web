@@ -1,0 +1,16 @@
+.card 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+    width:15rem;
+    height: 20rem;
+    background-color: #47455D;
+}
+
+.card > img 
+{
+    width: 50%;
+    height: 50%;
+}

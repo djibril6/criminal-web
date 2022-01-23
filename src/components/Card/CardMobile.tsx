@@ -8,7 +8,7 @@ type StyleType = {
 };
 const useStyles = makeStyles((theme: Theme) => ({
   card: {
-    width: '100%',
+    width: '90%',
     [theme.breakpoints.down('tablet')]: {
       height: 150,
     },
