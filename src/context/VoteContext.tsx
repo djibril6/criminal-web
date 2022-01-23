@@ -44,7 +44,7 @@ const VoteContextProvider: React.FC<VoteContextProviderProps> = ({
     (newStatus: EVoteType, id: string) => {
       if (state.code) {
         update({
-          url: `/criminals/${id}`,
+          url: `/criminals/${id}/vote`,
           data: {
             voter: state.code,
             voteType: newStatus,
