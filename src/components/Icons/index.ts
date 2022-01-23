@@ -8,3 +8,4 @@ export { default as VoteText2Icon } from './VoteText2';
 export { default as DesktopVoteIllustrationIcon } from './DesktopVoteIllustration';
 export { default as DesktopVoteText1Icon } from './DesktopVoteText1';
 export { default as DesktopVoteText2Icon } from './DesktopVoteText2';
+export { default as QuestionMarkIcon } from './QuestionMark';
