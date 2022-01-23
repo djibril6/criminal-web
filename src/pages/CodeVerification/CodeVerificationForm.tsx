@@ -42,7 +42,7 @@ const CodeVerificationForm = () => {
           .then((res) => {
             updateCode(res.data);
             updateIsCodeVerified(true);
-            navigate('/home');
+            navigate('/vote');
           })
           .catch((error) => {
             setError('This code is not valid');
@@ -75,7 +75,7 @@ const CodeVerificationForm = () => {
           </button>
           <button
             className={styles['ignore-btn']}
-            onClick={handleNavigation('/home')}
+            onClick={handleNavigation('/vote')}
           >
             ignore
           </button>
