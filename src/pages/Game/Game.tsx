@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { TopLeftCircle, TopRightCircle } from 'components';
 import { useState } from 'react';
 import CardBack from './CardBack';
@@ -6,6 +7,7 @@ import DropDownList from './DropDownList';
 import styles from './css/Game.module.css';
 
 const Game = () => {
+  const navigate = useNavigate();
   const [guess, setGuess] = useState<boolean>(true);
   const [guesses, setGuesses] = useState<{ value: String; state: boolean }[]>(
     []
@@ -29,6 +31,7 @@ const Game = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    navigate('/game-answer');
   };
 
   return (

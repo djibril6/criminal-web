@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { TopLeftCircle, TopRightCircle } from 'components';
 import { useState } from 'react';
 import styles from './css/Game.module.css';
@@ -6,23 +7,28 @@ import { CardMobile } from 'components';
 import CARD_LIST from '../../pages/Vote/cardList';
 
 const GameAnswer = () => {
+  const navigate = useNavigate();
+
   const [isCorrectAnswer] = useState(false);
 
   const handleNext = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    navigate('/game');
   };
 
   const handleEndGame = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    navigate('/game-score');
   };
 
   return (
     <div className={styles.page}>
       <div className={styles['game-wrapper']}>
+        <h1 className={styles.title}>guess</h1>
         <div className={styles['answer-card']}>
           <CardMobile
             value={CARD_LIST[0]?.value}

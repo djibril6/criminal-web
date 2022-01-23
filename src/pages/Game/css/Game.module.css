@@ -164,4 +164,6 @@ label, span
     font-weight: bolder;
     text-transform: capitalize;
     letter-spacing: .1rem;
+    padding: 0;
+    margin-bottom: 0;
 }
