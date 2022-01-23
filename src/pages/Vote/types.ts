@@ -19,6 +19,8 @@ export type PeopleType = {
   picture?: string;
   votes?: IVote[];
   categories: ECategory;
+  description: string;
+  tags: string[];
   id: string;
 };
 

@@ -5,6 +5,7 @@ import classNames from 'classnames';
 type StyleType = {
   color: string;
   modal: boolean;
+  dropdown: boolean;
 };
 const useStyles = makeStyles((theme: Theme) => ({
   card: {
@@ -16,7 +17,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       height: (props: StyleType) => (props.modal ? '80%' : 250),
     },
     [theme.breakpoints.up('laptop')]: {
-      height: (props: StyleType) => (props.modal ? '80%' : 355),
+      height: (props: StyleType) => {
+        if (props.modal) {
+          return '80%';
+        } else if (props.dropdown) {
+          return 150;
+        } else {
+          return 355;
+        }
+      },
     },
     borderRadius: 10,
     border: (props: StyleType) => `1px solid ${props.color}`,
@@ -44,7 +53,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       fontSize: (props: StyleType) => (props.modal ? 20 : 25),
     },
     [theme.breakpoints.up('laptop')]: {
-      fontSize: (props: StyleType) => (props.modal ? 20 : 58),
+      fontSize: (props: StyleType) => {
+        if (props.modal) {
+          return 20;
+        } else if (props.dropdown) {
+          return 20;
+        } else {
+          return 58;
+        }
+      },
     },
   },
   topLeft: {
@@ -82,9 +99,25 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginTop: -5,
     },
     [theme.breakpoints.up('laptop')]: {
-      height: (props: StyleType) => (props.modal ? 15 : 30),
-      width: (props: StyleType) => (props.modal ? 15 : 30),
-      marginTop: (props: StyleType) => (props.modal ? -5 : -10),
+      height: (props: StyleType) => {
+        if (props.modal) {
+          return 15;
+        } else if (props.dropdown) {
+          return 15;
+        } else {
+          return 30;
+        }
+      },
+      width: (props: StyleType) => {
+        if (props.modal) {
+          return 15;
+        } else if (props.dropdown) {
+          return 15;
+        } else {
+          return 30;
+        }
+      },
+      marginTop: (props: StyleType) => (props.modal ? -5 : -7),
     },
   },
 }));
@@ -98,6 +131,7 @@ type CardType = {
     name: string;
   };
   modal?: boolean;
+  dropdown?: boolean;
   onClick?: VoidFunction;
 };
 
@@ -107,9 +141,10 @@ const CardMobile: React.FC<CardType> = ({
   person,
   value,
   modal = false,
+  dropdown = false,
   onClick = () => {},
 }) => {
-  const styles = useStyles({ color, modal });
+  const styles = useStyles({ color, modal, dropdown });
 
   return (
     <Box className={styles.card} onClick={onClick}>
