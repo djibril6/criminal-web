@@ -1,0 +1,104 @@
+.page 
+{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: #FEFEFE;
+    margin-top: 5rem;
+}
+
+.game-wrapper 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25rem;
+    padding: 0 .5rem 0 .5rem;
+}
+
+.game-wrapper > *
+{
+    margin-top: 2rem;
+}
+
+.game-wrapper:first-child
+{
+    margin-top: 0;
+}
+
+
+.guess-form, .answer-form
+{
+    width: 100%;
+    padding: .5rem 1rem .5rem 1rem;
+}
+
+.guess-form > *
+{
+    margin-top: .5rem;
+    width: 100%;
+}
+
+label, span
+{
+    color: #3F3D56;
+    font-size: .85rem;
+    text-transform: capitalize;
+}
+
+
+.guess-form > input[type=text]
+{
+    color: #48465E;
+    width: 100%;
+    padding: .5rem;
+    margin: .5rem 0 .5rem 0;
+    border: 2px solid  #47455D;
+    border-radius: .25rem;
+    box-sizing: border-box;
+}
+
+.guess-form > input[type=text]:focus
+{
+   outline: none;
+}
+
+.guess-form > input[type=text]::placeholder 
+{
+   color:#D8D4D4;
+   font-size: .8rem;
+}
+
+.correct 
+{
+    color:#53BE73;
+}
+
+.wrong 
+{
+    color:#FC5959;
+}
+
+
+.answer-form > *
+{
+    margin-top: .5rem;
+    width: 100%;
+}
+.answer-form > button
+{
+    color:#FEFEFE;
+    background-color: #3F3D56;
+    width:100%;
+    font-weight: 700;
+    letter-spacing: .1rem;
+    padding: .5rem 0 .5rem 0 ;
+    border-radius: .5rem;
+    border:0;
+    cursor: pointer;
+}
+
+.answer-form > button:hover
+{
+    opacity: .9;
+}

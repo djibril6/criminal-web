@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Menu, CodeVerificationForm, Onboarding, GamePage } from 'pages';
+import { Home, Menu, CodeVerificationForm, Onboarding, Game } from 'pages';
 import './App.css';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
         <Route path="menu" element={<Menu />} />
         <Route path="code-verification" element={<CodeVerificationForm />} />
         <Route path="home" element={<Home />} />
-        <Route path="game" element={<GamePage />} />
+        <Route path="game" element={<Game />} />
         <Route path="onboarding" element={<Onboarding />} />
         <Route index element={<Menu />} />
       </Routes>
