@@ -53,6 +53,7 @@ const Menu: React.FC = () => {
         fullWidth
         color="primary"
         variant="outlined"
+        onClick={handleNavigation('/game')}
         style={{
           marginTop: 10,
           borderWidth: 3,

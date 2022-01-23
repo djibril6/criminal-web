@@ -8,19 +8,19 @@ import {
   Alert,
 } from '@mui/material';
 import { makeStyles, styled } from '@mui/styles';
-import { CardMobile, ModalPage, Loading, VoteCardList } from 'components';
+import { CardMobile, ModalPage, Loading, VoteCardList, Tabs } from 'components';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import useAxios from 'axios-hooks';
 import CARD_LIST from './cardList';
 import { ECategory, EVoteType, resultType } from './types';
 import { CodeDataType, VoteContext } from 'context/VoteContext';
-import classNames from 'classnames';
 import { customTheme } from 'common/theme';
 import {
   DesktopVoteIllustrationIcon,
   DesktopVoteText1Icon,
   DesktopVoteText2Icon,
 } from 'components/Icons';
+import { tabHeight } from 'components/Tabs';
 
 const CodeInput = styled(TextField)({
   '& label.Mui-focused': {
@@ -48,7 +48,6 @@ const CodeInput = styled(TextField)({
   color: 'red',
 });
 
-const tabHeight = 70;
 const useStyles = makeStyles((theme: Theme) => ({
   codeLabel: {
     marginBottom: 10,
@@ -57,41 +56,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     marginTop: 10,
-  },
-  tabsContent: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    [theme.breakpoints.down('tablet')]: {
-      position: 'fixed',
-      left: 0,
-      top: 0,
-      zIndex: 1,
-      width: '100%',
-    },
-    [theme.breakpoints.up('laptop')]: {
-      width: '40%',
-      margin: 'auto',
-      borderRadius: 10,
-    },
-    backgroundColor: theme.palette.background.default,
-    height: tabHeight,
-  },
-  tab: {
-    width: '50%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    cursor: 'pointer',
-    fontSize: 15,
-    fontWeight: 900,
-    color: theme.palette.primary.main,
-    [theme.breakpoints.up('laptop')]: {
-      border: `1px solid ${theme.palette.primary.main}`,
-    },
-  },
-  tabSelected: {
-    color: '#fff',
-    backgroundColor: theme.palette.primary.main,
   },
   divider: {
     width: '80%',
@@ -213,12 +177,9 @@ function Home() {
     { manual: true }
   );
 
-  const onTabSelected = useCallback(
-    (selected: ECategory) => () => {
-      setSelectedTab(selected);
-    },
-    []
-  );
+  const onTabSelected = useCallback((selected: ECategory) => {
+    setSelectedTab(selected);
+  }, []);
 
   const onOpenCard = useCallback(
     (index: number) => () => {
@@ -374,26 +335,11 @@ function Home() {
         </Box>
       </Box>
       <Box padding="15px">
-        <Box className={styles.tabsContent}>
-          <Box
-            className={classNames(
-              styles.tab,
-              selectedTab === ECategory.HUMANITY ? styles.tabSelected : ''
-            )}
-            onClick={onTabSelected(ECategory.HUMANITY)}
-          >
-            <span style={{ textAlign: 'center' }}>Crime against Humanity</span>
-          </Box>
-          <Box
-            className={classNames(
-              styles.tab,
-              selectedTab === ECategory.NATURE ? styles.tabSelected : ''
-            )}
-            onClick={onTabSelected(ECategory.NATURE)}
-          >
-            <span style={{ textAlign: 'center' }}>Crime against Nature</span>
-          </Box>
-        </Box>
+        <Tabs
+          selectedTab={selectedTab}
+          onTabSelected={onTabSelected}
+          mobileFixed
+        />
 
         <Box className={styles.divider} />
 

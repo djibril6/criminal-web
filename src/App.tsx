@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { Home, Menu, CodeVerification, Onboarding } from 'pages';
+import { Home, Menu, CodeVerification, Onboarding, GamePage } from 'pages';
 import './App.css';
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
         <Route path="menu" element={<Menu />} />
         <Route path="code-verification" element={<CodeVerification />} />
         <Route path="home" element={<Home />} />
+        <Route path="game" element={<GamePage />} />
         <Route path="onboarding" element={<Onboarding />} />
         <Route index element={<Menu />} />
       </Routes>
