@@ -8,3 +8,4 @@ export { default as ModalPage } from './ModalPage';
 export { default as VoteCardList } from './VoteCardList';
 export { default as TopRightCircle } from './BackGroundObjects/TopRightCircle';
 export { default as TopLeftCircle } from './BackGroundObjects/TopLeftCircle';
+export { default as Tabs } from './Tabs';

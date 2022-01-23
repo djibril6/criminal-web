@@ -71,7 +71,7 @@ const VoteCard: React.FC<VoteCardType> = ({
         person={{ image: criminal.picture!, name: criminal.name! }}
         rank={rank}
       />
-      <Box marginTop={1}>
+      <Box marginTop={1} maxHeight={window.innerHeight / 4} overflow="auto">
         <Typography variant="h1">Crimes</Typography>
         <Typography
           variant="body1"

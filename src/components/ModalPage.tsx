@@ -9,10 +9,13 @@ const style = {
   alignItems: 'center',
   justifyContent: 'flex-end',
   cursor: 'pointer',
+  position: 'absolute',
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
   modalContentRoot: {
+    position: 'relative',
+    paddingTop: 30,
     [theme.breakpoints.down('tablet')]: {
       width: '100%',
       height: '100%',
