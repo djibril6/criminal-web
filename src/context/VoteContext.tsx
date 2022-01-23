@@ -1,6 +1,6 @@
 import { Alert, Snackbar } from '@mui/material';
 import useAxios from 'axios-hooks';
-import { ECategory, EVoteType } from 'pages/Home/types';
+import { ECategory, EVoteType } from 'pages/Vote/types';
 import { createContext, useCallback, useState } from 'react';
 
 export type CodeDataType = {

@@ -1,7 +1,7 @@
 import { Box, Button, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { customTheme } from 'common/theme';
-import { EVoteType, PeopleType } from 'pages/Home/types';
+import { EVoteType, PeopleType } from 'pages/Vote/types';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { StatusType } from './Card/card.type';
 import CardDetails from './Card/CardDetails';

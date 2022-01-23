@@ -1,5 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Menu, CodeVerificationForm, Onboarding, GamePage } from 'pages';
+import {
+  Home,
+  Menu,
+  CodeVerificationForm,
+  Onboarding,
+  GamePage,
+  VotePage,
+} from 'pages';
 import './App.css';
 
 function App() {
@@ -11,6 +18,7 @@ function App() {
         <Route path="code-verification" element={<CodeVerificationForm />} />
         <Route path="home" element={<Home />} />
         <Route path="game" element={<GamePage />} />
+        <Route path="vote" element={<VotePage />} />
         <Route path="onboarding" element={<Onboarding />} />
         <Route index element={<Menu />} />
       </Routes>

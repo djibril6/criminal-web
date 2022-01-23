@@ -15,11 +15,6 @@ import CARD_LIST from './cardList';
 import { ECategory, EVoteType, resultType } from './types';
 import { CodeDataType, VoteContext } from 'context/VoteContext';
 import { customTheme } from 'common/theme';
-import {
-  DesktopVoteIllustrationIcon,
-  DesktopVoteText1Icon,
-  DesktopVoteText2Icon,
-} from 'components/Icons';
 import { tabHeight } from 'components/Tabs';
 
 const CodeInput = styled(TextField)({
@@ -154,7 +149,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function Home() {
+function Vote() {
   const [selectedTab, setSelectedTab] = useState(ECategory.HUMANITY);
   const [openCard, setOpenCard] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -253,53 +248,6 @@ function Home() {
 
   return (
     <>
-      <Box className={styles.header}>
-        <Box className={styles.rightCircle}>
-          <DesktopVoteIllustrationIcon
-            style={{
-              width: 500,
-              height: 500,
-              marginLeft: -250,
-              marginBottom: -110,
-            }}
-          />
-        </Box>
-        <Box className={styles.topCircle}>
-          <Typography variant="subtitle1" style={{ color: '#fff' }}>
-            Your Voice Matter
-          </Typography>
-          <Typography
-            variant="body1"
-            color="primary"
-            overflow="auto"
-            style={{ marginBottom: 40, marginTop: 20, color: '#fff' }}
-          >
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim
-            officia exercitationem ex? Asperiores tempora reprehenderit ipsam
-            magni pariatur tempore assumenda incidunt, similique. Asperiores
-            tempora reprehenderit ipsam magni pariatur tempore assumenda
-            incidunt, similique.
-          </Typography>
-        </Box>
-        <DesktopVoteText1Icon
-          style={{
-            width: 600,
-            height: 300,
-            position: 'absolute',
-            bottom: 200,
-            left: -100,
-          }}
-        />
-        <DesktopVoteText2Icon
-          style={{
-            width: 600,
-            height: 300,
-            position: 'absolute',
-            bottom: 50,
-            right: -100,
-          }}
-        />
-      </Box>
       <Box className={styles.banner}>
         <Typography variant="h1" style={{ color: '#fff' }}>
           Your voting code goes here
@@ -378,4 +326,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Vote;

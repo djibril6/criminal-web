@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { customTheme } from 'common/theme';
 import { ModalPage, Tabs } from 'components';
 import { QuestionMarkIcon } from 'components/Icons';
-import { ECategory } from 'pages/Home/types';
+import { ECategory } from 'pages/Vote/types';
 import { useCallback, useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
