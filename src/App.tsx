@@ -5,6 +5,7 @@ import {
   CodeVerificationForm,
   Onboarding,
   Game,
+  GameAnswer,
   VotePage,
 } from 'pages';
 import './App.css';
@@ -18,6 +19,7 @@ function App() {
         <Route path="code-verification" element={<CodeVerificationForm />} />
         <Route path="home" element={<Home />} />
         <Route path="game" element={<Game />} />
+        <Route path="game-answer" element={<GameAnswer />} />
         <Route path="vote" element={<VotePage />} />
         <Route path="onboarding" element={<Onboarding />} />
         <Route index element={<Menu />} />
