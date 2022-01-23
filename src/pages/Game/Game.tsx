@@ -61,10 +61,12 @@ const Game = () => {
         </form>
 
         {/* The user submit his answer here*/}
-        <form className={styles['answer-form']}>
-          <DropDownList />
-          <button onClick={handleSubmit}>Submit</button>
-        </form>
+        {guess && (
+          <form className={styles['answer-form']}>
+            <DropDownList />
+            <button onClick={handleSubmit}>Submit</button>
+          </form>
+        )}
       </div>
       <TopLeftCircle />
       <TopRightCircle />
