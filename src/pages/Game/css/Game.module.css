@@ -7,6 +7,7 @@
     margin-top: 5rem;
 }
 
+
 .game-wrapper 
 {
     display: flex;
@@ -26,6 +27,14 @@
     margin-top: 0;
 }
 
+
+.title 
+{
+    font-size:1.5rem;
+    font-weight:600;
+    text-transform: capitalize;
+    letter-spacing: .2rem;
+}
 
 .guess-form, .answer-form, .next-form
 {

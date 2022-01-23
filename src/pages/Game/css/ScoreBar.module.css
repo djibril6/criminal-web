@@ -1,0 +1,45 @@
+.score-bar-wrapper
+{
+    width: 15rem;
+    height: 15rem;
+}
+
+.keys-wrapper
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.keys 
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    margin: 1rem 0 3rem 0;
+    width: 150%;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .1rem;
+    list-style: none;
+    text-transform: capitalize;
+}
+
+.keys li i
+{
+    margin-right: .5rem;
+}
+
+.correct 
+{
+    color:#53BE73;
+}
+
+.wrong 
+{
+    color:#FC5959;
+}
+
