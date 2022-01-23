@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Menu, CodeVerificationForm, CodeVerification, Onboarding } from 'pages';
+import { Home, Menu, CodeVerificationForm, Onboarding } from 'pages';
 import './App.css';
 import { useIsMobile } from 'common/hooks';
 
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={isMobile ? <Menu /> : <Home />} />
         <Route path="menu" element={<Menu />} />
-        <Route path="code-verification" element={<CodeVerificationForm/>}/>
+        <Route path="code-verification" element={<CodeVerificationForm />} />
         <Route path="home" element={<Home />} />
         <Route path="onboarding" element={<Onboarding />} />
         <Route index element={<Menu />} />
