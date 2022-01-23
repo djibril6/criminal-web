@@ -1,7 +1,7 @@
 import { Box, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import classNames from 'classnames';
-import { ECategory } from 'pages/Home/types';
+import { ECategory } from 'pages/Vote/types';
 import { useCallback } from 'react';
 
 export const tabHeight = 39;

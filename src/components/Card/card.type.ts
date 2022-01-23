@@ -1,4 +1,4 @@
-import { EVoteType } from 'pages/Home/types';
+import { EVoteType } from 'pages/Vote/types';
 
 export type StatusType =
   | EVoteType.NONE

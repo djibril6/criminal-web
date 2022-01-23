@@ -2,16 +2,17 @@ import { useNavigate } from 'react-router-dom';
 import styles from './css/Home.module.css';
 import VotingIllustration from '../../statics/assets/illustrations/home/voting_illustration.svg';
 import { TopLeftCircle, TopRightCircle } from 'components';
+import { useCallback } from 'react';
 
 const Home = () => {
   const navigate = useNavigate();
-  const handleVoteButton = () => {
+  const handleVoteButton = useCallback(() => {
     navigate('/code-verification');
-  };
+  }, [navigate]);
 
-  const handlePlayButton = () => {
+  const handlePlayButton = useCallback(() => {
     navigate('/game');
-  };
+  }, [navigate]);
 
   return (
     <div className={styles.page}>
