@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { EVoteType } from 'pages/Home/types';
+import { EVoteType } from 'pages/Vote/types';
 import acceptBlack from 'statics/img/accept-black.png';
 import acceptGreen from 'statics/img/accept-green.png';
 import rejectBlack from 'statics/img/reject-black.png';

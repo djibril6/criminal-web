@@ -1,0 +1,36 @@
+.top-right-circle
+{
+    overflow: hidden;
+    position: absolute;
+    top:-150px;
+    right:-120px;
+    width:500px;
+    height:500px;
+    background-color: #48465E;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.top-left-circle
+{
+    overflow: hidden;
+    position: absolute;
+    top:-100px;
+    left:-80px;
+    width:200px;
+    height:200px;
+    background-color: #48465E;
+    border-radius: 50%;
+}
+
+@media only screen and (max-width: 1024px) 
+{
+    .top-left-circle
+    {
+        display: none;
+    }
+    .top-right-circle
+    {
+        display: none;
+    }
+}

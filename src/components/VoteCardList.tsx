@@ -8,9 +8,9 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import CARD_LIST from 'pages/Home/cardList';
+import CARD_LIST from 'pages/Vote/cardList';
 import VoteCard from './VoteCard';
-import { EVoteType, PeopleType } from 'pages/Home/types';
+import { EVoteType, PeopleType } from 'pages/Vote/types';
 import { StatusType } from './Card/card.type';
 import { VoteContext } from 'context/VoteContext';
 

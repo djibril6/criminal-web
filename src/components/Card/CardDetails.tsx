@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import classNames from 'classnames';
-import { EVoteType } from 'pages/Home/types';
+import { EVoteType } from 'pages/Vote/types';
 import { StatusType } from './card.type';
 
 type StyleType = {
