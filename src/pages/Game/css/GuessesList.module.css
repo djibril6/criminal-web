@@ -1,0 +1,25 @@
+.guesses 
+{
+    padding: 0;
+    width: 100%;
+    font-size: .9rem;
+    font-weight: 700;
+    list-style: none;
+    text-transform: capitalize;
+}
+
+.guesses li i
+{
+    margin-right: .5rem;
+}
+
+.correct 
+{
+    color:#53BE73;
+}
+
+.wrong 
+{
+    color:#FC5959;
+}
+
