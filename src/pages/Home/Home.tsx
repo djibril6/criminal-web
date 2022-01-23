@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 const Home = () => {
   const navigate = useNavigate();
   const handleVoteButton = useCallback(() => {
-    navigate('/vote');
+    navigate('/code-verification');
   }, [navigate]);
 
   const handlePlayButton = useCallback(() => {
