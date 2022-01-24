@@ -6,6 +6,7 @@ import styles from './css/Game.module.css';
 import CARD_LIST from '../../pages/Vote/cardList';
 import { EGameStateAction, GameContext } from 'context';
 import { useOrder } from 'common/helper';
+import { ECategory } from 'pages/Vote/types';
 
 const GameAnswer = () => {
   const { state, dispatch, fetchNewCriminal } = useContext(GameContext);
@@ -38,7 +39,7 @@ const GameAnswer = () => {
     navigate('/game-score');
   };
 
-  const orderedCriminal = useOrder();
+  const orderedCriminal = useOrder(ECategory.HUMANITY);
 
   const getRank = useMemo(
     () => orderedCriminal?.findIndex(({ id }) => id === state.criminal.id) + 1,

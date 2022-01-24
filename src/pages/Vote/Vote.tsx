@@ -7,6 +7,12 @@ import CARD_LIST from './cardList';
 import { ECategory } from './types';
 import { tabHeight } from 'components/Tabs';
 import { useOrder } from 'common/helper';
+import CoversHumanity from 'statics/img/Covers-Humanity.png';
+import CoversNature from 'statics/img/Covers-Nature.png';
+import JokerHumanityRed from 'statics/img/Joker-Humanity-Red.png';
+import JokerHumanityWhite from 'statics/img/Joker-Humanity-White.png';
+import JokerNatureWhite from 'statics/img/Joker-Nature-White.png';
+import JokerNatureRed from 'statics/img/Joker-Nature-Red.png';
 
 const useStyles = makeStyles((theme: Theme) => ({
   codeLabel: {
@@ -112,6 +118,39 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
   },
+  top: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.down('tablet')]: {
+      flexDirection: 'row',
+    },
+    [theme.breakpoints.up('tablet')]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.up('laptop')]: {
+      flexDirection: 'column',
+    },
+    marginTop: 20,
+  },
+  bottom: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+    width: '50%',
+    [theme.breakpoints.down('tablet')]: {
+      width: 'fit-content',
+      justifyContent: 'center',
+    },
+  },
+  images: {
+    [theme.breakpoints.down('tablet')]: {
+      width: '100px',
+      height: '150px',
+      marginLeft: 15,
+    },
+  },
 }));
 
 function Vote() {
@@ -121,7 +160,7 @@ function Vote() {
   const styles = useStyles();
 
   const navigate = useNavigate();
-  const orderedCriminal = useOrder();
+  const orderedCriminal = useOrder(selectedTab);
 
   const onTabSelected = useCallback((selected: ECategory) => {
     setSelectedTab(selected);
@@ -154,15 +193,41 @@ function Vote() {
 
         <Box className={styles.divider} />
 
+        {selectedTab === ECategory.HUMANITY ? (
+          <Box className={styles.top}>
+            <img className={styles.images} src={CoversHumanity} alt="" />
+            <Box className={styles.bottom}>
+              <img className={styles.images} src={JokerHumanityWhite} alt="" />
+              <img className={styles.images} src={JokerHumanityRed} alt="" />
+            </Box>
+          </Box>
+        ) : (
+          <Box className={styles.top}>
+            <img className={styles.images} src={CoversNature} alt="" />
+            <Box className={styles.bottom}>
+              <img className={styles.images} src={JokerNatureWhite} alt="" />
+              <img className={styles.images} src={JokerNatureRed} alt="" />
+            </Box>
+          </Box>
+        )}
+
         <Box className={styles.criminalList}>
           {orderedCriminal?.map(
-            ({ categories, id, name, picture, votes }, idx) => (
+            (
+              { categories, id, name, picture, shortBrief, title, votes },
+              idx
+            ) => (
               <CardMobile
                 key={id}
                 value={CARD_LIST[idx]?.value}
                 color={CARD_LIST[idx]?.color}
                 icon={CARD_LIST[idx]?.icon}
-                person={{ image: picture!, name: name! }}
+                person={{
+                  image: picture!,
+                  name: name!,
+                  subtitle: title,
+                  subtitle2: shortBrief,
+                }}
                 onClick={onOpenCard(idx)}
               />
             )

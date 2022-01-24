@@ -80,9 +80,7 @@ const VoteCard: React.FC<VoteCardType> = ({
             color: '#000',
           }}
         >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-          nesciunt ab magnam nam ipsum! Explicabo id quibusdam, odio corrupti
-          quos nam sequi?
+          {criminal.shortDescription}
         </Typography>
       </Box>
 
@@ -218,7 +216,12 @@ const VoteCard: React.FC<VoteCardType> = ({
           value={card.value}
           color={card.color}
           icon={card.icon}
-          person={{ image: criminal.picture!, name: criminal.name! }}
+          person={{
+            image: criminal.picture!,
+            name: criminal.name!,
+            subtitle: criminal.title,
+            subtitle2: criminal.title,
+          }}
           modal
         />
       </Box>
@@ -234,9 +237,7 @@ const VoteCard: React.FC<VoteCardType> = ({
             color: '#000',
           }}
         >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-          nesciunt ab magnam nam ipsum! Explicabo id quibusdam, odio corrupti
-          quos nam sequi?
+          {criminal.shortDescription}
         </Typography>
 
         {state.isCodeVerified ? (

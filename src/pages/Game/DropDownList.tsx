@@ -8,6 +8,7 @@ import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { EGameStateAction, GameContext } from 'context';
 import { useOrder } from 'common/helper';
+import { ECategory } from 'pages/Vote/types';
 
 const useStyles = makeStyles((theme) => ({
   dropdownContainer: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const DropDownList = () => {
   const classes = useStyles();
   const { dispatch } = useContext(GameContext);
-  const orderedCriminal = useOrder();
+  const orderedCriminal = useOrder(ECategory.HUMANITY);
   const [currentGuess, setCurrentGuess] = useState<{
     id: String;
     name: String;
@@ -63,13 +64,21 @@ const DropDownList = () => {
         }
       >
         {orderedCriminal?.map(
-          ({ categories, id, name, picture, votes }, idx) => (
+          (
+            { categories, id, name, picture, votes, title, shortBrief },
+            idx
+          ) => (
             <CardMobile
               key={id}
               value={CARD_LIST[idx]?.value}
               color={CARD_LIST[idx]?.color}
               icon={CARD_LIST[idx]?.icon}
-              person={{ image: picture!, name: name! }}
+              person={{
+                image: picture!,
+                name: name!,
+                subtitle: title!,
+                subtitle2: shortBrief!,
+              }}
               onClick={onGuess(id, name!)}
               dropdown
             />

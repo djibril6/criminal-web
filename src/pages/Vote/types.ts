@@ -21,6 +21,9 @@ export type PeopleType = {
   categories: ECategory;
   description: string;
   tags: string[];
+  shortBrief: string;
+  shortDescription: string;
+  title: string;
   id: string;
 };
 

@@ -2,7 +2,7 @@ import useAxios from 'axios-hooks';
 import { ECategory, EVoteType, resultType } from 'pages/Vote/types';
 import { useEffect, useMemo } from 'react';
 
-export const useOrder = () => {
+export const useOrder = (selectedTab: ECategory) => {
   const [
     {
       data: criminalsList = {} as resultType,
@@ -14,9 +14,9 @@ export const useOrder = () => {
 
   useEffect(() => {
     fetchCriminals({
-      url: `/criminals?limit=52&page=1&categories=${ECategory.HUMANITY}`,
+      url: `/criminals?limit=52&page=1&categories=${selectedTab}`,
     });
-  }, [fetchCriminals]);
+  }, [fetchCriminals, selectedTab]);
 
   const orderedPeople = useMemo(() => {
     return criminalsList.results?.sort((a, b) => {

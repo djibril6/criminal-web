@@ -1,6 +1,7 @@
 import { Box, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import classNames from 'classnames';
+import { useIsMobile } from 'common/hooks';
 import { customTheme } from 'common/theme';
 
 type StyleType = {
@@ -13,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '90%',
     [theme.breakpoints.down('tablet')]: {
       height: 150,
+      width: '100%',
     },
     [theme.breakpoints.up('tablet')]: {
       height: (props: StyleType) => (props.modal ? '80%' : 250),
@@ -45,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
+    paddingTop: (props: StyleType) => (props.modal ? 10 : 0),
     color: (props: StyleType) => props.color,
     fontWeight: 500,
     [theme.breakpoints.down('tablet')]: {
@@ -77,7 +80,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     transform: 'rotate(-180deg)',
   },
   middle: {
-    width: '60%',
+    width: '100%',
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
@@ -85,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
   },
   image: {
-    width: '100%',
+    width: '60%',
     height: '50%',
     border: (props: StyleType) => `2px solid ${props.color}`,
     borderRadius: 10,
@@ -123,8 +126,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   cardName: {
-    height: 40,
-    width: 40,
+    height: (props: StyleType) => (props.modal ? 25 : 40),
+    width: (props: StyleType) => (props.modal ? 25 : 40),
+    [theme.breakpoints.down('tablet')]: {
+      height: 20,
+      width: 20,
+    },
   },
 }));
 
@@ -135,6 +142,8 @@ type CardType = {
   person: {
     image: string;
     name: string;
+    subtitle: string;
+    subtitle2: string;
   };
   modal?: boolean;
   dropdown?: boolean;
@@ -151,6 +160,7 @@ const CardMobile: React.FC<CardType> = ({
   onClick = () => {},
 }) => {
   const styles = useStyles({ color, modal, dropdown });
+  const isMobile = useIsMobile();
 
   return (
     <Box className={styles.card} onClick={onClick}>
@@ -163,12 +173,36 @@ const CardMobile: React.FC<CardType> = ({
         <Box className={styles.cardIcon}>{icon}</Box>
       </Box>
       <Box className={styles.middle}>
-        <Typography variant="h1" style={{ color }}>
-          Person 1
-        </Typography>
-        <Typography style={{ color }}>Person 1</Typography>
+        {!isMobile && !modal && (
+          <Typography
+            variant="h1"
+            style={{ color, width: '80%', marginLeft: 40 }}
+          >
+            {person.name}
+          </Typography>
+        )}
+        {!isMobile && !modal && (
+          <Typography
+            style={{ color, fontSize: 10, width: '80%', marginLeft: 40 }}
+          >
+            {person.subtitle}
+          </Typography>
+        )}
         <img src={person.image} alt={person.name} className={styles.image} />
-        <Typography style={{ color }}>Person 1</Typography>
+        {!isMobile && !modal && (
+          <Typography
+            variant="subtitle2"
+            style={{
+              color,
+              fontSize: 10,
+              marginLeft: -10,
+              marginTop: 5,
+              width: '70%',
+            }}
+          >
+            {person.subtitle2}
+          </Typography>
+        )}
       </Box>
     </Box>
   );
