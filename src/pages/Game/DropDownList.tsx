@@ -2,13 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './css/DropDownList.module.css';
 import { CardMobile } from 'components';
-import { useCallback, useEffect, useMemo, useState, useContext } from 'react';
-import useAxios from 'axios-hooks';
+import { useCallback, useState, useContext } from 'react';
 import CARD_LIST from '../../pages/Vote/cardList';
-import { ECategory, EVoteType, resultType } from '../../pages/Vote/types';
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { EGameStateAction, GameContext } from 'context';
+import { useOrder } from 'common/helper';
 
 const useStyles = makeStyles((theme) => ({
   dropdownContainer: {
@@ -26,47 +25,13 @@ const useStyles = makeStyles((theme) => ({
 const DropDownList = () => {
   const classes = useStyles();
   const { dispatch } = useContext(GameContext);
+  const orderedCriminal = useOrder();
   const [currentGuess, setCurrentGuess] = useState<{
     id: String;
     name: String;
   }>({ id: '', name: 'make a guess' });
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const [
-    {
-      data: criminalsList = {} as resultType,
-      // error: criminalError,
-      //   loading: criminalsLoading,
-    },
-    fetchCriminals,
-  ] = useAxios<resultType>({}, { manual: true });
-
-  useEffect(() => {
-    fetchCriminals({
-      url: `/criminals?limit=52&page=1&categories=${ECategory.HUMANITY}`,
-    });
-  }, [fetchCriminals]);
-
-  const orderedPeople = useMemo(
-    () => () => {
-      return criminalsList.results?.sort((a, b) => {
-        const votesA = a.votes!.filter(
-          (vote) => vote.voteType === EVoteType.THUMB_UP
-        ).length;
-        const votesB = b.votes!.filter(
-          (vote) => vote.voteType === EVoteType.THUMB_UP
-        ).length;
-        if (votesA < votesB) {
-          return 1;
-        } else if (votesA > votesB) {
-          return -1;
-        }
-        return 0;
-      });
-    },
-    [criminalsList]
-  );
 
   const handleDropdown = useCallback(() => {
     setDropdownOpen(!dropdownOpen);
@@ -97,7 +62,7 @@ const DropDownList = () => {
           dropdownOpen ? classes.dropdownContainer : classes.closedDropdown
         }
       >
-        {orderedPeople()?.map(
+        {orderedCriminal?.map(
           ({ categories, id, name, picture, votes }, idx) => (
             <CardMobile
               key={id}

@@ -7,6 +7,7 @@
     margin-top: 5rem;
 }
 
+
 .game-wrapper 
 {
     display: flex;
@@ -27,7 +28,15 @@
 }
 
 
-.guess-form, .answer-form
+.title 
+{
+    font-size:1.5rem;
+    font-weight:600;
+    text-transform: capitalize;
+    letter-spacing: .2rem;
+}
+
+.guess-form, .answer-form, .next-form
 {
     width: 100%;
     padding: .5rem 1rem .5rem 1rem;
@@ -101,4 +110,60 @@ label, span
 .answer-form > button:hover
 {
     opacity: .9;
+}
+
+
+.answer-card 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+    width:15rem;
+    height: 20rem;
+}
+
+.next-form > *
+{
+    margin-top: .5rem;
+    width: 100%;
+}
+
+.next-form > button
+{
+    color:#FEFEFE;
+    background-color: #3F3D56;
+    width:100%;
+    font-weight: 700;
+    letter-spacing: .1rem;
+    padding: .5rem 0 .5rem 0 ;
+    border-radius: .5rem;
+    border:0;
+    cursor: pointer;
+    border: 1px solid #3F3D56;
+    text-transform: capitalize;
+}
+
+
+.next-form > button:last-child
+{
+    background-color: #FEFEFE;
+    color: #3F3D56;
+}
+
+.next-form > button:hover
+{
+    opacity: .9;
+}
+
+
+
+.answer-message 
+{
+    font-size: 1.3rem;
+    font-weight: bolder;
+    text-transform: capitalize;
+    letter-spacing: .1rem;
+    padding: 0;
+    margin-bottom: 0;
 }
