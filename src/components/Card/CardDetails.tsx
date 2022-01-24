@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import classNames from 'classnames';
+import { customTheme } from 'common/theme';
 import { EVoteType } from 'pages/Vote/types';
 import { StatusType } from './card.type';
 
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: customTheme.color.cardBackground,
     cursor: 'pointer',
   },
   cornerText: {
@@ -67,12 +68,16 @@ const useStyles = makeStyles((theme) => ({
     width: 20,
     marginTop: -5,
   },
+  cardName: {
+    height: 30,
+    width: 30,
+  },
 }));
 
 type CardType = {
-  value: string;
+  value: JSX.Element;
   color: string;
-  icon: string;
+  icon: JSX.Element;
   person: {
     image: string;
     name: string;
@@ -94,10 +99,12 @@ const CardDetails: React.FC<CardType> = ({
   return (
     <Box className={styles.card}>
       <Box className={classNames(styles.topLeft, styles.cornerText)}>
-        {value} <img src={icon} alt={value} className={styles.cardIcon} />
+        <Box className={styles.cardName}>{value}</Box>{' '}
+        <Box className={styles.cardIcon}>{icon}</Box>
       </Box>
       <Box className={classNames(styles.BottomRight, styles.cornerText)}>
-        {value} <img src={icon} alt={value} className={styles.cardIcon} />
+        <Box className={styles.cardName}>{value}</Box>{' '}
+        <Box className={styles.cardIcon}>{icon}</Box>
       </Box>
       <Box className={styles.middle}>
         <Typography variant="h1" style={{ color }}>

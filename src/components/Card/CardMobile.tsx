@@ -1,6 +1,7 @@
-import { Box, Theme } from '@mui/material';
+import { Box, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import classNames from 'classnames';
+import { customTheme } from 'common/theme';
 
 type StyleType = {
   color: string;
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: customTheme.color.cardBackground,
     cursor: 'pointer',
   },
 
@@ -77,16 +78,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   middle: {
     width: '60%',
-    height: '60%',
+    height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    border: (props: StyleType) => `2px solid ${props.color}`,
   },
   image: {
     width: '100%',
-    height: '100%',
+    height: '50%',
+    border: (props: StyleType) => `2px solid ${props.color}`,
+    borderRadius: 10,
   },
   cardIcon: {
     [theme.breakpoints.down('tablet')]: {
@@ -120,12 +122,16 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginTop: (props: StyleType) => (props.modal ? -5 : -7),
     },
   },
+  cardName: {
+    height: 40,
+    width: 40,
+  },
 }));
 
 type CardType = {
-  value: string;
+  value: JSX.Element;
   color: string;
-  icon: string;
+  icon: JSX.Element;
   person: {
     image: string;
     name: string;
@@ -149,13 +155,20 @@ const CardMobile: React.FC<CardType> = ({
   return (
     <Box className={styles.card} onClick={onClick}>
       <Box className={classNames(styles.topLeft, styles.cornerText)}>
-        {value} <img src={icon} alt={value} className={styles.cardIcon} />
+        <Box className={styles.cardName}>{value}</Box>{' '}
+        <Box className={styles.cardIcon}>{icon}</Box>
       </Box>
       <Box className={classNames(styles.BottomRight, styles.cornerText)}>
-        {value} <img src={icon} alt={value} className={styles.cardIcon} />
+        <Box className={styles.cardName}>{value}</Box>{' '}
+        <Box className={styles.cardIcon}>{icon}</Box>
       </Box>
       <Box className={styles.middle}>
+        <Typography variant="h1" style={{ color: '#fff' }}>
+          Person 1
+        </Typography>
+        <Typography style={{ color: '#fff' }}>Person 1</Typography>
         <img src={person.image} alt={person.name} className={styles.image} />
+        <Typography style={{ color: '#fff' }}>Person 1</Typography>
       </Box>
     </Box>
   );

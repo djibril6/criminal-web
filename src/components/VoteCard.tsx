@@ -28,9 +28,9 @@ type VoteCardType = {
   onVote?: (type: StatusType) => void;
   status?: EVoteType;
   card: {
-    value: string;
+    value: JSX.Element;
     color: string;
-    icon: string;
+    icon: JSX.Element;
   };
   criminal: PeopleType;
   rank: number;

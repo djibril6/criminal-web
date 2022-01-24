@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material';
 /**
  * TODO - create a hook for calculating the ration
  * ratio = size-of-the-screen / 960
- * 960 is the size in the provided UX design
+ * 960 is the size in the provided UX design  #d40000
  */
 
 export const customTheme = {
@@ -21,6 +21,8 @@ export const customTheme = {
     red: '#fc5959',
     yellow: '#c2824c',
     green: '#53be73',
+    cardBackground: '#000000',
+    cardBorder: '#ffffff',
   },
 };
 
