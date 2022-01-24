@@ -176,14 +176,26 @@ const CardMobile: React.FC<CardType> = ({
         {!isMobile && !modal && (
           <Typography
             variant="h1"
-            style={{ color, width: '80%', marginLeft: 40 }}
+            style={{
+              color,
+              width: '80%',
+              marginLeft: 5,
+              textAlign: 'center',
+              textTransform: 'uppercase',
+            }}
           >
             {person.name}
           </Typography>
         )}
         {!isMobile && !modal && (
           <Typography
-            style={{ color, fontSize: 10, width: '80%', marginLeft: 40 }}
+            style={{
+              color,
+              fontSize: 10,
+              width: '80%',
+              marginLeft: 20,
+              textAlign: 'center',
+            }}
           >
             {person.subtitle}
           </Typography>
@@ -196,8 +208,9 @@ const CardMobile: React.FC<CardType> = ({
               color,
               fontSize: 10,
               marginLeft: -10,
-              marginTop: 5,
+              marginTop: 10,
               width: '70%',
+              textAlign: 'center',
             }}
           >
             {person.subtitle2}

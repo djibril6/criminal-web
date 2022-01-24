@@ -7,10 +7,5 @@
     width:15rem;
     height: 20rem;
     background-color: #47455D;
-}
-
-.card > img 
-{
-    width: 50%;
-    height: 50%;
+    position: relative;
 }

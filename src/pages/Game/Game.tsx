@@ -6,6 +6,7 @@ import DropDownList from './DropDownList';
 import styles from './css/Game.module.css';
 import { EGameStateAction, GameContext } from 'context';
 import { useNavigate } from 'react-router-dom';
+import { ECategory } from 'pages/Vote/types';
 
 const Game = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const Game = () => {
     <div className={styles.page}>
       <div className={styles['game-wrapper']}>
         <div>
-          <CardBack />
+          <CardBack category={ECategory.HUMANITY} />
         </div>
         <GuessesList />
 
