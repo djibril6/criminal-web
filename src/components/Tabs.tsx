@@ -73,7 +73,14 @@ const Tabs: React.FC<TapsProps> = ({
         )}
         onClick={onSelected(ECategory.HUMANITY)}
       >
-        <span style={{ textAlign: 'center' }}>Crime against Humanity</span>
+        <span
+          style={{
+            color: selectedTab === ECategory.HUMANITY ? '#FEFEFE' : '#3F3D56',
+            textAlign: 'center',
+          }}
+        >
+          Crime against Humanity
+        </span>
       </Box>
       <Box
         className={classNames(
@@ -82,7 +89,14 @@ const Tabs: React.FC<TapsProps> = ({
         )}
         onClick={onSelected(ECategory.NATURE)}
       >
-        <span style={{ textAlign: 'center' }}>Crime against Nature</span>
+        <span
+          style={{
+            color: selectedTab === ECategory.NATURE ? '#FEFEFE' : '#3F3D56',
+            textAlign: 'center',
+          }}
+        >
+          Crime against Nature
+        </span>
       </Box>
     </Box>
   );

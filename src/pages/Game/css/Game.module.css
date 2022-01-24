@@ -88,6 +88,10 @@ label, span
     color:#FC5959;
 }
 
+.disabled 
+{
+    background-color:#DDD;
+}
 
 .answer-form > *
 {
@@ -166,4 +170,5 @@ label, span
     letter-spacing: .1rem;
     padding: 0;
     margin-bottom: 0;
+    text-align: center;
 }
