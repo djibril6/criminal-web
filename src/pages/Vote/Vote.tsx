@@ -1,48 +1,12 @@
-import {
-  Box,
-  Theme,
-  Typography,
-  TextField,
-  CircularProgress,
-  Snackbar,
-  Alert,
-} from '@mui/material';
-import { makeStyles, styled } from '@mui/styles';
+import { Box, Theme } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { CardMobile, ModalPage, VoteCardList, Tabs } from 'components';
-import { useCallback, useContext, useState } from 'react';
-import useAxios from 'axios-hooks';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CARD_LIST from './cardList';
 import { ECategory } from './types';
-import { CodeDataType, VoteContext } from 'context/VoteContext';
-import { customTheme } from 'common/theme';
 import { tabHeight } from 'components/Tabs';
 import { useOrder } from 'common/helper';
-
-const CodeInput = styled(TextField)({
-  '& label.Mui-focused': {
-    color: customTheme.color.blue,
-  },
-  '& .MuiInput-underline:after': {
-    borderWidth: 0,
-    borderRadius: '10px 0px 0px 10px',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderWidth: 0,
-      borderRadius: '10px 0px 0px 10px',
-    },
-    '&:hover fieldset': {
-      borderWidth: 0,
-      borderRadius: '10px 0px 0px 10px',
-      color: customTheme.color.blue,
-    },
-    '&.Mui-focused fieldset': {
-      borderWidth: 0,
-      borderRadius: '10px 0px 0px 10px',
-    },
-  },
-  color: 'red',
-});
 
 const useStyles = makeStyles((theme: Theme) => ({
   codeLabel: {
@@ -154,18 +118,10 @@ function Vote() {
   const [selectedTab, setSelectedTab] = useState(ECategory.HUMANITY);
   const [openCard, setOpenCard] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [code, setCode] = useState('');
-  const [open, setOpen] = useState(false);
-  const [error, setError] = useState<string>('');
-  const { state, updateCode, updateIsCodeVerified } = useContext(VoteContext);
   const styles = useStyles();
 
+  const navigate = useNavigate();
   const orderedCriminal = useOrder();
-
-  const [{ loading }, verifyCode] = useAxios<CodeDataType>(
-    {},
-    { manual: true }
-  );
 
   const onTabSelected = useCallback((selected: ECategory) => {
     setSelectedTab(selected);
@@ -183,75 +139,13 @@ function Vote() {
     setOpenCard(false);
   }, []);
 
-  const handleSubmit = useCallback(() => {
-    if (code) {
-      verifyCode({ url: `/codes/verify/${code}` })
-        .then((res) => {
-          updateCode(res.data);
-          updateIsCodeVerified(true);
-        })
-        .catch((error) => {
-          setError('This code is not valid');
-          updateIsCodeVerified(false);
-          setOpen(true);
-        });
-    } else {
-      setError("Let' fill the code first");
-      setOpen(true);
-    }
-  }, [code, verifyCode, updateCode, updateIsCodeVerified]);
-
-  const codeChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      setCode(e.target.value);
-      updateIsCodeVerified(state.code.code === e.target.value);
-    },
-    [state.code.code, updateIsCodeVerified]
-  );
-
-  const handleClose = useCallback(() => {
-    setOpen(!open);
-  }, [open]);
-
-  // if (criminalsLoading) return <Loading />;
+  const handleVerify = () => {
+    navigate('/code-verification');
+  };
 
   return (
     <>
-      <Box className={styles.banner}>
-        <Typography variant="h1" style={{ color: '#fff' }}>
-          Your voting code goes here
-        </Typography>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="row"
-          marginTop={2}
-        >
-          <CodeInput
-            fullWidth
-            id="outlined-basic"
-            variant="outlined"
-            size="small"
-            color="primary"
-            placeholder="* * * * * * * * *  *"
-            style={{
-              marginRight: 3,
-              backgroundColor: '#fff',
-              borderRadius: '10px 0px 0px 10px',
-            }}
-            onChange={codeChange}
-          />
-          {Boolean(state.isCodeVerified) ? (
-            <Box className={styles.verifiedBtn}>Verified</Box>
-          ) : (
-            <Box className={styles.codeBtn} onClick={handleSubmit}>
-              {loading ? <CircularProgress /> : 'Verify'}
-            </Box>
-          )}
-        </Box>
-      </Box>
-      <Box padding="15px">
+      <Box padding="20px">
         <Tabs
           selectedTab={selectedTab}
           onTabSelected={onTabSelected}
@@ -278,19 +172,10 @@ function Vote() {
           <VoteCardList
             criminals={orderedCriminal!}
             initialIndex={current}
-            onCloseModal={handleCloseCard}
+            onCloseModal={handleVerify}
           />
         </ModalPage>
       </Box>
-
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        onClose={handleClose}
-      >
-        <Alert severity="error">{error}</Alert>
-      </Snackbar>
     </>
   );
 }
