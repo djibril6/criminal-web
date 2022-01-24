@@ -15,7 +15,7 @@ type StateType = {
 };
 type VoteContextType = {
   state: StateType;
-  updadeVote: (newStatus: EVoteType, id: string) => boolean;
+  updateVote: (newStatus: EVoteType, id: string) => boolean;
   updateCode: (newCode: CodeDataType) => void;
   updateIsCodeVerified: (status: boolean) => void;
 };
@@ -40,13 +40,13 @@ const VoteContextProvider: React.FC<VoteContextProviderProps> = ({
     },
     { manual: true }
   );
-  const updadeVote = useCallback(
+  const updateVote = useCallback(
     (newStatus: EVoteType, id: string) => {
-      if (state.code) {
+      if (state.code.code) {
         update({
           url: `/criminals/${id}/vote`,
           data: {
-            voter: state.code,
+            voter: state.code.code,
             voteType: newStatus,
           },
         });
@@ -61,12 +61,9 @@ const VoteContextProvider: React.FC<VoteContextProviderProps> = ({
     [state.code, update]
   );
 
-  const updateCode = useCallback(
-    (newCode: CodeDataType) => {
-      setState({ ...state, code: newCode });
-    },
-    [state]
-  );
+  const updateCode = useCallback((newCode: CodeDataType) => {
+    setState({ isCodeVerified: true, code: newCode });
+  }, []);
 
   const updateIsCodeVerified = useCallback(
     (status: boolean) => {
@@ -80,7 +77,7 @@ const VoteContextProvider: React.FC<VoteContextProviderProps> = ({
   }, [open]);
   return (
     <VoteContext.Provider
-      value={{ updadeVote, updateCode, updateIsCodeVerified, state }}
+      value={{ updateVote, updateCode, updateIsCodeVerified, state }}
     >
       <Snackbar
         open={open}

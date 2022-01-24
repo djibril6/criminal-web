@@ -59,7 +59,7 @@ const VoteCardList: React.FC<SwiperProps> = ({
   const styles = useStyles();
   const boxContainer = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(initialIndex);
-  const { state, updadeVote } = useContext(VoteContext);
+  const { state, updateVote } = useContext(VoteContext);
 
   const scroll = useCallback(() => {
     if (boxContainer.current) {
@@ -100,10 +100,10 @@ const VoteCardList: React.FC<SwiperProps> = ({
 
   const handleVote = useCallback(
     (criminalId: string) => (vote: StatusType) => {
-      const result = updadeVote(vote, criminalId);
+      const result = updateVote(vote, criminalId);
       if (result) scrollTo(currentStep + 1);
     },
-    [currentStep, scrollTo, updadeVote]
+    [currentStep, scrollTo, updateVote]
   );
 
   const onContainerScroll = useCallback(

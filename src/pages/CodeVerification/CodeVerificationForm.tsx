@@ -41,7 +41,6 @@ const CodeVerificationForm = () => {
         verifyCode({ url: `/codes/verify/${code}` })
           .then((res) => {
             updateCode(res.data);
-            updateIsCodeVerified(true);
             navigate('/vote');
           })
           .catch((error) => {
