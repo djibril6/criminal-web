@@ -1,5 +1,7 @@
 import { Modal, Box, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const style = {
   width: '95%',
@@ -10,6 +12,8 @@ const style = {
   justifyContent: 'flex-end',
   cursor: 'pointer',
   position: 'absolute',
+  right: '20px',
+  top: '20px',
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -52,7 +56,7 @@ const ModalPage: React.FC<ModalType> = ({ children, onClose, open }) => {
     >
       <Box className={styles.modalContentRoot}>
         <Box sx={style} onClick={onClose}>
-          x
+          <FontAwesomeIcon icon={faTimesCircle} />
         </Box>
         {children}
       </Box>

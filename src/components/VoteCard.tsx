@@ -131,7 +131,7 @@ const VoteCard: React.FC<VoteCardType> = ({
                   : customTheme.color.grey,
               }}
             >
-              Agree
+              I agree
             </Typography>
           </Box>
 
@@ -175,7 +175,7 @@ const VoteCard: React.FC<VoteCardType> = ({
                   : customTheme.color.grey,
               }}
             >
-              Agree
+              I disagree
             </Typography>
           </Box>
         </Box>
@@ -284,7 +284,7 @@ const VoteCard: React.FC<VoteCardType> = ({
                     : customTheme.color.grey,
                 }}
               >
-                Agree
+                I agree
               </Typography>
             </Box>
 
@@ -330,7 +330,7 @@ const VoteCard: React.FC<VoteCardType> = ({
                     : customTheme.color.grey,
                 }}
               >
-                Agree
+                I disagree
               </Typography>
             </Box>
           </Box>
