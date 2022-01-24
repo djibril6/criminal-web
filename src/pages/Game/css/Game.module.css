@@ -88,6 +88,10 @@ label, span
     color:#FC5959;
 }
 
+.disabled 
+{
+    background-color:#DDD;
+}
 
 .answer-form > *
 {

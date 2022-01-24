@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Game = () => {
   const navigate = useNavigate();
+  const [guessCounter, setGuessCounter] = useState(0);
   const [guess, setGuess] = useState('');
   const [isLastCorrect, setIsLastCorrect] = useState(false);
   const [isOneCorrect, setIsOneCorrect] = useState(false);
@@ -26,26 +27,35 @@ const Game = () => {
     [guess, state.criminal.tags]
   );
 
-  const handleSubmit = useCallback(() => {
-    if (guess) {
-      dispatch({
-        type: EGameStateAction.ADD_GUESS,
-        payload: {
-          guess,
-          status: isCorrectGuess,
-        },
-      });
-      if (isCorrectGuess) {
-        setIsOneCorrect(true);
+  const handleGuessInput = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (guess) {
+        dispatch({
+          type: EGameStateAction.ADD_GUESS,
+          payload: {
+            guess,
+            status: isCorrectGuess,
+          },
+        });
+        if (isCorrectGuess) {
+          setIsOneCorrect(true);
+        }
+        setIsLastCorrect(isCorrectGuess);
+        setGuess('');
+        setGuessCounter((guessCounter) => guessCounter + 1);
       }
-      setIsLastCorrect(isCorrectGuess);
-      setGuess('');
-    }
+    },
+    [dispatch, guess, isCorrectGuess]
+  );
 
+  const handleSubmit = useCallback(() => {
     if (state.selectedCriminalId) {
       navigate('/game-answer');
     }
-  }, [dispatch, guess, isCorrectGuess, state.selectedCriminalId, navigate]);
+  }, [state.selectedCriminalId, navigate]);
+
+  const handleSkip = () => navigate('/game-answer');
 
   return (
     <div className={styles.page}>
@@ -56,17 +66,19 @@ const Game = () => {
         <GuessesList />
 
         {/* The user make a guess here*/}
-        <div className={styles['guess-form']}>
+        <form className={styles['guess-form']} onSubmit={handleGuessInput}>
           <label htmlFor="guess">
             describe the criminal using <strong>1 keyword</strong>
           </label>
           <input
+            className={guessCounter >= 5 ? styles.disabled : ''}
             id="guess"
             name="guess"
             type="text"
             placeholder="E.g: Nazi, Germany, African, Russia"
             value={guess}
             onChange={handleInputChange}
+            disabled={guessCounter >= 5 ? true : false}
           />
           {Boolean(state.guesses.length > 0) && (
             <span>
@@ -77,13 +89,18 @@ const Game = () => {
               </strong>
             </span>
           )}
-        </div>
+        </form>
 
         {/* The user submit his answer here*/}
-        {Boolean(guess || isOneCorrect) && (
+        {(isOneCorrect || guessCounter >= 3) && (
           <div className={styles['answer-form']}>
-            <DropDownList />
-            <button onClick={handleSubmit}>Submit</button>
+            {!isCorrectGuess && <button onClick={handleSkip}>Skip</button>}
+            {isCorrectGuess && (
+              <>
+                <DropDownList />
+                <button onClick={handleSubmit}>Submit</button>
+              </>
+            )}
           </div>
         )}
       </div>
