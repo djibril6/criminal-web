@@ -39,7 +39,7 @@ const GameScore = () => {
   return (
     <div className={styles.page}>
       <div className={styles['game-wrapper']}>
-        {Boolean(getScore > 50) && <ConfettiExplosion duration={5000} />}
+        {Boolean(getScore >= 50) && <ConfettiExplosion duration={5000} />}
         <h1 className={styles.title}>
           score: {state.correctGuesses * 10} points
         </h1>

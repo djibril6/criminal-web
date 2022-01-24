@@ -9,6 +9,8 @@ interface IProps {
 }
 
 const ScoreBar: React.FC<IProps> = ({ percentage }) => {
+  const textColor = percentage >= 50 ? '#53BE73' : '#FC5959';
+
   return (
     <div className={styles['score-bar-wrapper']}>
       <CircularProgressbar
@@ -20,7 +22,7 @@ const ScoreBar: React.FC<IProps> = ({ percentage }) => {
           textSize: '18px',
           pathTransitionDuration: 0.5,
           pathColor: '#53BE73',
-          textColor: '#53BE73',
+          textColor,
           trailColor: '#FC5959',
           backgroundColor: '#FEFEFE',
         })}
