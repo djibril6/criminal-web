@@ -3,9 +3,9 @@ import { SvgIcon, SvgIconProps } from '@mui/material';
 const CardA: React.FC<SvgIconProps> = (props) => (
   <SvgIcon
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 25 36"
-    width={25}
-    height={36}
+    viewBox="0 0 20 23"
+    width={20}
+    height={23}
     {...props}
   >
     <defs>

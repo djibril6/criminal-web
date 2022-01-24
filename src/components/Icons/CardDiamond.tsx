@@ -3,14 +3,14 @@ import { SvgIcon, SvgIconProps } from '@mui/material';
 const CardA: React.FC<SvgIconProps> = (props) => (
   <SvgIcon
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 23"
-    width={20}
+    viewBox="0 0 17 23"
+    width={17}
     height={23}
     {...props}
   >
     <defs>
       <image
-        width={20}
+        width={17}
         height={23}
         id="a"
         href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXAQMAAAAx0/3gAAAAAXNSR0IB2cksfwAAAANQTFRFAAAAp3o92gAAAAF0Uk5TAEDm2GYAAAAMSURBVHicY2CgHQAAAFwAAWOhsYEAAAAASUVORK5CYII="

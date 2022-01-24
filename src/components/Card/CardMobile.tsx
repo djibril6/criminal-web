@@ -163,12 +163,12 @@ const CardMobile: React.FC<CardType> = ({
         <Box className={styles.cardIcon}>{icon}</Box>
       </Box>
       <Box className={styles.middle}>
-        <Typography variant="h1" style={{ color: '#fff' }}>
+        <Typography variant="h1" style={{ color }}>
           Person 1
         </Typography>
-        <Typography style={{ color: '#fff' }}>Person 1</Typography>
+        <Typography style={{ color }}>Person 1</Typography>
         <img src={person.image} alt={person.name} className={styles.image} />
-        <Typography style={{ color: '#fff' }}>Person 1</Typography>
+        <Typography style={{ color }}>Person 1</Typography>
       </Box>
     </Box>
   );
