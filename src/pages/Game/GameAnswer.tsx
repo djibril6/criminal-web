@@ -1,20 +1,29 @@
 import { useNavigate } from 'react-router-dom';
-import { TopLeftCircle, TopRightCircle } from 'components';
-import { useState } from 'react';
+import { CardDetails, TopLeftCircle, TopRightCircle } from 'components';
+import { useContext, useEffect, useMemo } from 'react';
 import styles from './css/Game.module.css';
-import { CardMobile } from 'components';
 
 import CARD_LIST from '../../pages/Vote/cardList';
+import { EGameStateAction, GameContext } from 'context';
+import { useOrder } from 'common/helper';
 
 const GameAnswer = () => {
+  const { state, dispatch, fetchNewCriminal } = useContext(GameContext);
   const navigate = useNavigate();
-
-  const [isCorrectAnswer] = useState(false);
 
   const handleNext = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    fetchNewCriminal();
+    dispatch({
+      type: EGameStateAction.NEW_SESSION,
+    });
+    if (state.criminal.id === state.selectedCriminalId) {
+      dispatch({
+        type: EGameStateAction.INCREMENT_CORRECT_GUESSES,
+      });
+    }
     navigate('/game');
   };
 
@@ -25,25 +34,45 @@ const GameAnswer = () => {
     navigate('/game-score');
   };
 
+  const orderedCriminal = useOrder();
+
+  const getRank = useMemo(
+    () => orderedCriminal?.findIndex(({ id }) => id === state.criminal.id) + 1,
+    [orderedCriminal, state.criminal.id]
+  );
+
+  useEffect(() => {
+    if (state.criminal.id === state.selectedCriminalId) {
+      dispatch({
+        type: EGameStateAction.INCREMENT_CORRECT_GUESSES,
+      });
+    }
+  }, [dispatch, state.criminal.id, state.selectedCriminalId]);
+
   return (
     <div className={styles.page}>
       <div className={styles['game-wrapper']}>
         <h1 className={styles.title}>guess</h1>
         <div className={styles['answer-card']}>
-          <CardMobile
-            value={CARD_LIST[0]?.value}
-            color={CARD_LIST[0]?.color}
-            icon={CARD_LIST[0]?.icon}
-            person={{ image: '', name: 'hitler' }}
-            onClick={() => {}}
+          <CardDetails
+            value={CARD_LIST[getRank]?.value}
+            color={CARD_LIST[getRank]?.color}
+            icon={CARD_LIST[getRank]?.icon}
+            person={{
+              image: state.criminal.picture!,
+              name: state.criminal.name!,
+            }}
+            rank={getRank}
           />
         </div>
         <h3
           className={`${styles['answer-message']} ${
-            isCorrectAnswer ? styles.correct : styles.wrong
+            state.criminal.id === state.selectedCriminalId
+              ? styles.correct
+              : styles.wrong
           }`}
         >
-          {isCorrectAnswer
+          {state.criminal.id === state.selectedCriminalId
             ? 'congratulation you guessed it right'
             : 'you were so close!'}
         </h3>

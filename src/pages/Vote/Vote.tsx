@@ -8,14 +8,15 @@ import {
   Alert,
 } from '@mui/material';
 import { makeStyles, styled } from '@mui/styles';
-import { CardMobile, ModalPage, Loading, VoteCardList, Tabs } from 'components';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { CardMobile, ModalPage, VoteCardList, Tabs } from 'components';
+import { useCallback, useContext, useState } from 'react';
 import useAxios from 'axios-hooks';
 import CARD_LIST from './cardList';
-import { ECategory, EVoteType, resultType } from './types';
+import { ECategory } from './types';
 import { CodeDataType, VoteContext } from 'context/VoteContext';
 import { customTheme } from 'common/theme';
 import { tabHeight } from 'components/Tabs';
+import { useOrder } from 'common/helper';
 
 const CodeInput = styled(TextField)({
   '& label.Mui-focused': {
@@ -158,14 +159,8 @@ function Vote() {
   const [error, setError] = useState<string>('');
   const { state, updateCode, updateIsCodeVerified } = useContext(VoteContext);
   const styles = useStyles();
-  const [
-    {
-      data: criminalsList = {} as resultType,
-      // error: criminalError,
-      loading: criminalsLoading,
-    },
-    fetchCriminals,
-  ] = useAxios<resultType>({}, { manual: true });
+
+  const orderedCriminal = useOrder();
 
   const [{ loading }, verifyCode] = useAxios<CodeDataType>(
     {},
@@ -188,12 +183,6 @@ function Vote() {
     setOpenCard(false);
   }, []);
 
-  useEffect(() => {
-    fetchCriminals({
-      url: `/criminals?limit=52&page=1&categories=${selectedTab}`,
-    });
-  }, [fetchCriminals, selectedTab]);
-
   const handleSubmit = useCallback(() => {
     if (code) {
       verifyCode({ url: `/codes/verify/${code}` })
@@ -212,26 +201,6 @@ function Vote() {
     }
   }, [code, verifyCode, updateCode, updateIsCodeVerified]);
 
-  const orderedPeople = useMemo(
-    () => () => {
-      return criminalsList.results?.sort((a, b) => {
-        const votesA = a.votes!.filter(
-          (vote) => vote.voteType === EVoteType.THUMB_UP
-        ).length;
-        const votesB = b.votes!.filter(
-          (vote) => vote.voteType === EVoteType.THUMB_UP
-        ).length;
-        if (votesA < votesB) {
-          return 1;
-        } else if (votesA > votesB) {
-          return -1;
-        }
-        return 0;
-      });
-    },
-    [criminalsList]
-  );
-
   const codeChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       setCode(e.target.value);
@@ -244,7 +213,7 @@ function Vote() {
     setOpen(!open);
   }, [open]);
 
-  if (criminalsLoading) return <Loading />;
+  // if (criminalsLoading) return <Loading />;
 
   return (
     <>
@@ -292,7 +261,7 @@ function Vote() {
         <Box className={styles.divider} />
 
         <Box className={styles.criminalList}>
-          {orderedPeople()?.map(
+          {orderedCriminal?.map(
             ({ categories, id, name, picture, votes }, idx) => (
               <CardMobile
                 key={id}
@@ -307,7 +276,7 @@ function Vote() {
         </Box>
         <ModalPage open={openCard} onClose={handleCloseCard}>
           <VoteCardList
-            criminals={orderedPeople()!}
+            criminals={orderedCriminal!}
             initialIndex={current}
             onCloseModal={handleCloseCard}
           />

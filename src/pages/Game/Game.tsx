@@ -1,38 +1,51 @@
-import { useNavigate } from 'react-router-dom';
 import { TopLeftCircle, TopRightCircle } from 'components';
-import { useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import CardBack from './CardBack';
 import GuessesList from './GuessesList';
 import DropDownList from './DropDownList';
 import styles from './css/Game.module.css';
+import { EGameStateAction, GameContext } from 'context';
+import { useNavigate } from 'react-router-dom';
 
 const Game = () => {
   const navigate = useNavigate();
-  const [guess, setGuess] = useState<boolean>(true);
-  const [guesses, setGuesses] = useState<{ value: String; state: boolean }[]>(
+  const [guess, setGuess] = useState('');
+  const [isLastCorrect, setIsLastCorrect] = useState(false);
+  const [isOneCorrect, setIsOneCorrect] = useState(false);
+  const { state, dispatch } = useContext(GameContext);
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setGuess(e.target.value);
+    },
     []
   );
 
-  const handleGuessInput = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const value = event.currentTarget.guess.value;
-    if (value === '') return;
-    event.currentTarget.guess.value = '';
+  const isCorrectGuess = useMemo(
+    () => state.criminal.tags?.includes(guess),
+    [guess, state.criminal.tags]
+  );
 
-    /* check if the guess is correct or note */
+  const handleSubmit = useCallback(() => {
+    if (guess) {
+      dispatch({
+        type: EGameStateAction.ADD_GUESS,
+        payload: {
+          guess,
+          status: isCorrectGuess,
+        },
+      });
+      if (isCorrectGuess) {
+        setIsOneCorrect(true);
+      }
+      setIsLastCorrect(isCorrectGuess);
+      setGuess('');
+    }
 
-    setGuess(!guess);
-
-    /* add the new guess to the list of the old guesses*/
-    setGuesses([...guesses, { value, state: guess }]);
-  };
-
-  const handleSubmit = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    navigate('/game-answer');
-  };
+    if (state.selectedCriminalId) {
+      navigate('/game-answer');
+    }
+  }, [dispatch, guess, isCorrectGuess, state.selectedCriminalId, navigate]);
 
   return (
     <div className={styles.page}>
@@ -40,11 +53,10 @@ const Game = () => {
         <div>
           <CardBack />
         </div>
-
-        <GuessesList guesses={guesses} />
+        <GuessesList />
 
         {/* The user make a guess here*/}
-        <form className={styles['guess-form']} onSubmit={handleGuessInput}>
+        <div className={styles['guess-form']}>
           <label htmlFor="guess">
             describe the criminal using <strong>1 keyword</strong>
           </label>
@@ -53,22 +65,26 @@ const Game = () => {
             name="guess"
             type="text"
             placeholder="E.g: Nazi, Germany, African, Russia"
+            value={guess}
+            onChange={handleInputChange}
           />
-          <span>
-            your guess is
-            <strong className={guess ? styles.correct : styles.wrong}>
-              {' '}
-              {guess ? 'correct' : 'wrong'}
-            </strong>
-          </span>
-        </form>
+          {Boolean(state.guesses.length > 0) && (
+            <span>
+              your guess is
+              <strong className={isLastCorrect ? styles.correct : styles.wrong}>
+                {' '}
+                {isLastCorrect ? 'correct' : 'wrong'}
+              </strong>
+            </span>
+          )}
+        </div>
 
         {/* The user submit his answer here*/}
-        {guess && (
-          <form className={styles['answer-form']}>
+        {Boolean(guess || isOneCorrect) && (
+          <div className={styles['answer-form']}>
             <DropDownList />
             <button onClick={handleSubmit}>Submit</button>
-          </form>
+          </div>
         )}
       </div>
       <TopLeftCircle />

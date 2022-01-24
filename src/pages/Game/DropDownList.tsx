@@ -2,81 +2,80 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import styles from './css/DropDownList.module.css';
 import { CardMobile } from 'components';
-import { useEffect, useMemo, useState } from 'react';
-import useAxios from 'axios-hooks';
+import { useCallback, useState, useContext } from 'react';
 import CARD_LIST from '../../pages/Vote/cardList';
-import { ECategory, EVoteType, resultType } from '../../pages/Vote/types';
+import { Box } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { EGameStateAction, GameContext } from 'context';
+import { useOrder } from 'common/helper';
+
+const useStyles = makeStyles((theme) => ({
+  dropdownContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: 10,
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  closedDropdown: {
+    display: 'none',
+  },
+}));
 
 const DropDownList = () => {
+  const classes = useStyles();
+  const { dispatch } = useContext(GameContext);
+  const orderedCriminal = useOrder();
   const [currentGuess, setCurrentGuess] = useState<{
     id: String;
     name: String;
   }>({ id: '', name: 'make a guess' });
 
-  const [
-    {
-      data: criminalsList = {} as resultType,
-      // error: criminalError,
-      //   loading: criminalsLoading,
-    },
-    fetchCriminals,
-  ] = useAxios<resultType>({}, { manual: true });
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    fetchCriminals({
-      url: `/criminals?limit=52&page=1&categories=${ECategory.HUMANITY}`,
-    });
-  }, [fetchCriminals]);
+  const handleDropdown = useCallback(() => {
+    setDropdownOpen(!dropdownOpen);
+  }, [dropdownOpen]);
 
-  const orderedPeople = useMemo(
-    () => () => {
-      return criminalsList.results?.sort((a, b) => {
-        const votesA = a.votes!.filter(
-          (vote) => vote.voteType === EVoteType.THUMB_UP
-        ).length;
-        const votesB = b.votes!.filter(
-          (vote) => vote.voteType === EVoteType.THUMB_UP
-        ).length;
-        if (votesA < votesB) {
-          return 1;
-        } else if (votesA > votesB) {
-          return -1;
-        }
-        return 0;
+  const onGuess = useCallback(
+    (id: string, name: string) => () => {
+      setCurrentGuess({ id, name: name! });
+      dispatch({
+        type: EGameStateAction.PICK_CRIMINAL,
+        payload: id,
       });
+      handleDropdown();
     },
-    [criminalsList]
+    [handleDropdown, dispatch]
   );
 
   return (
     <div className={styles.dropdown}>
-      <button
-        className={styles.dropbtn}
-        onClick={(event) => event.preventDefault()}
-      >
+      <button className={styles.dropbtn} onClick={handleDropdown}>
         {currentGuess.name}
         <span className={styles.droparrow}>
           <FontAwesomeIcon icon={faChevronDown} />
         </span>
       </button>
-      <div className={styles['dropdown-content']}>
-        {orderedPeople()?.map(
+      <Box
+        className={
+          dropdownOpen ? classes.dropdownContainer : classes.closedDropdown
+        }
+      >
+        {orderedCriminal?.map(
           ({ categories, id, name, picture, votes }, idx) => (
-            <div key={id}>
-              <CardMobile
-                value={CARD_LIST[idx]?.value}
-                color={CARD_LIST[idx]?.color}
-                icon={CARD_LIST[idx]?.icon}
-                person={{ image: picture!, name: name! }}
-                onClick={() => {
-                  setCurrentGuess({ id, name: name! });
-                }}
-              />
-              <span className={styles.vspace}></span>
-            </div>
+            <CardMobile
+              key={id}
+              value={CARD_LIST[idx]?.value}
+              color={CARD_LIST[idx]?.color}
+              icon={CARD_LIST[idx]?.icon}
+              person={{ image: picture!, name: name! }}
+              onClick={onGuess(id, name!)}
+              dropdown
+            />
           )
         )}
-      </div>
+      </Box>
     </div>
   );
 };

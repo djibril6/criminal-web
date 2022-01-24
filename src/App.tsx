@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" />
         <Route path="menu" element={<Menu />} />
         <Route path="code-verification" element={<CodeVerificationForm />} />
         <Route path="home" element={<Home />} />
@@ -24,7 +24,7 @@ function App() {
         <Route path="game-score" element={<GameScore />} />
         <Route path="vote" element={<VotePage />} />
         <Route path="onboarding" element={<Onboarding />} />
-        <Route index element={<Menu />} />
+        <Route index element={<Home />} />
       </Routes>
     </div>
   );

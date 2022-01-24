@@ -4,26 +4,20 @@ import {
   faTimesCircle,
   faCheckCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import { GameContext } from 'context';
+import { useContext } from 'react';
 
-interface IProps {
-  guesses: { value: String; state: boolean }[];
-}
-
-const GuessesList: React.FC<IProps> = ({ guesses }) => {
+const GuessesList: React.FC = () => {
+  const { state } = useContext(GameContext);
   return (
     <ul className={styles.guesses}>
-      {guesses.map((guess, index) => {
+      {state.guesses?.map(({ guess, status }, index) => {
         return (
-          <li
-            key={index}
-            className={guess.state ? styles.correct : styles.wrong}
-          >
+          <li key={index} className={status ? styles.correct : styles.wrong}>
             <i>
-              <FontAwesomeIcon
-                icon={guess.state ? faCheckCircle : faTimesCircle}
-              />
+              <FontAwesomeIcon icon={status ? faCheckCircle : faTimesCircle} />
             </i>
-            {`guess ${index + 1}`} : {guess.value}
+            {`guess ${index + 1}`} : {guess}
           </li>
         );
       })}

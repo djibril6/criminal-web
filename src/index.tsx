@@ -9,6 +9,7 @@ import App from './App';
 import appTheme from 'common/theme';
 import axiosClient from 'common/api';
 import VoteContextProvider from 'context/VoteContext';
+import { GameContextProvider } from 'context';
 
 // import 'react-awesome-slider/dist/styles.css';
 
@@ -19,7 +20,9 @@ ReactDOM.render(
     <ThemeProvider theme={appTheme}>
       <BrowserRouter>
         <VoteContextProvider>
-          <App />
+          <GameContextProvider>
+            <App />
+          </GameContextProvider>
         </VoteContextProvider>
       </BrowserRouter>
     </ThemeProvider>
