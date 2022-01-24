@@ -11,6 +11,10 @@ const GameAnswer = () => {
   const { state, dispatch, fetchNewCriminal } = useContext(GameContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (state.guesses.length === 0) navigate('/home');
+  }, [state, navigate, state.correctGuesses]);
+
   const handleNext = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {

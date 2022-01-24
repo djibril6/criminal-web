@@ -3,6 +3,8 @@ import styles from './css/Home.module.css';
 import VotingIllustration from '../../statics/assets/illustrations/home/voting_illustration.svg';
 import { TopLeftCircle, TopRightCircle } from 'components';
 import { useCallback } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSmileBeam } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -20,10 +22,13 @@ const Home = () => {
         <div className={styles['home-left']}>
           <h1>your voice matter</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-            velit, perspiciatis magni facere voluptates illo eos maxime pariatur
-            in quibusdam fuga, laudantium odit. Officia recusandae, distinctio
-            omnis voluptas unde obcaecati!
+            The pledgers towards the project will be able to vote up or down a
+            person that has committed crimes against humanity or a human
+            activity that destroys the environment. By doing so, we hope to keep
+            the lists fair and transparent. The pledgers will receive the voting
+            code right after making their pledge. Also, you can play and
+            challenge your knowledge by trying out our quiz.{' '}
+            <FontAwesomeIcon icon={faSmileBeam} />
           </p>
 
           <div className={styles['btn-wrapper']}>
