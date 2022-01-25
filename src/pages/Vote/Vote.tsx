@@ -1,4 +1,4 @@
-import { Box, Theme } from '@mui/material';
+import { Typography, Divider, Box, Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { CardMobile, ModalPage, VoteCardList, Tabs } from 'components';
 import { useCallback, useState } from 'react';
@@ -184,7 +184,7 @@ function Vote() {
 
   return (
     <>
-      <Box padding="20px">
+      <Box padding="70px 20px 20px 20px">
         <Tabs
           selectedTab={selectedTab}
           onTabSelected={onTabSelected}
@@ -210,6 +210,17 @@ function Vote() {
             </Box>
           </Box>
         )}
+
+        <Divider sx={{ marginTop: 3 }} light />
+        <Typography
+          sx={{ paddingTop: 3, paddingBottom: 3 }}
+          variant="h1"
+          component="h2"
+          align="center"
+        >
+          Click On The Card To See More Details & Vote
+        </Typography>
+        <Divider sx={{ marginBottom: 3 }} light />
 
         <Box className={styles.criminalList}>
           {orderedCriminal?.map(

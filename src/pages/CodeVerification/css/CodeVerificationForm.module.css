@@ -61,12 +61,15 @@
     transform: translateY(10px);
 }
   
-.form > a 
+.form > span 
 {
     color: #FEFEFE;
     text-align: right;
     font-size: .75rem;
     margin: .5rem 0 .5rem 0;
+    text-transform: inherit;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .form > button 

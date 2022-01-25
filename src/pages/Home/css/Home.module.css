@@ -39,6 +39,14 @@
     line-height: 30px;
     text-align: justify;
 }
+
+.home-left > p:first
+{
+    font-size: 1rem;
+    line-height: 30px;
+    text-align: justify;
+}
+
 .home-left .btn-wrapper 
 {
     display: flex;

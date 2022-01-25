@@ -25,6 +25,13 @@ const Home = () => {
         <div className={styles['home-left']}>
           <h1>your voice matter</h1>
           <p>
+            <strong>
+              Nr369 is a TuTor platform with a Play & Learn concept for kids and
+              youngsters. Our mission is to raise social and environmental
+              awareness through interactive education.
+            </strong>
+          </p>
+          <p>
             The pledgers towards the project will be able to vote up or down a
             person that has committed crimes against humanity or a human
             activity that destroys the environment. By doing so, we hope to keep
