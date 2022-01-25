@@ -180,7 +180,7 @@ CARD_LIST.push(
         style={{ width: '100%', height: '100%' }}
       />
     ),
-    color: '#000000',
+    color: '#fff',
     icon: <CardClubIcon style={{ width: '100%', height: '100%' }} />,
   },
   {
@@ -190,7 +190,7 @@ CARD_LIST.push(
         style={{ width: '100%', height: '100%' }}
       />
     ),
-    color: '#000000',
+    color: '#fff',
     icon: <CardSpadeIcon style={{ width: '100%', height: '100%' }} />,
   },
   {
@@ -223,7 +223,7 @@ CARD_LIST.push(
         style={{ width: '100%', height: '100%' }}
       />
     ),
-    color: '#000000',
+    color: '#fff',
     icon: <CardClubIcon style={{ width: '100%', height: '100%' }} />,
   },
   {
@@ -233,7 +233,7 @@ CARD_LIST.push(
         style={{ width: '100%', height: '100%' }}
       />
     ),
-    color: '#000000',
+    color: '#fff',
     icon: <CardSpadeIcon style={{ width: '100%', height: '100%' }} />,
   },
   {

@@ -2,19 +2,22 @@ import { useNavigate } from 'react-router-dom';
 import styles from './css/Home.module.css';
 import VotingIllustration from '../../statics/assets/illustrations/home/voting_illustration.svg';
 import { TopLeftCircle, TopRightCircle } from 'components';
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSmileBeam } from '@fortawesome/free-solid-svg-icons';
+import { GameContext } from 'context';
 
 const Home = () => {
   const navigate = useNavigate();
+  const { fetchNewCriminal } = useContext(GameContext);
   const handleVoteButton = useCallback(() => {
     navigate('/code-verification');
   }, [navigate]);
 
   const handlePlayButton = useCallback(() => {
+    fetchNewCriminal();
     navigate('/game');
-  }, [navigate]);
+  }, [navigate, fetchNewCriminal]);
 
   return (
     <div className={styles.page}>

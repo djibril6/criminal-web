@@ -1,13 +1,7 @@
 import useAxios from 'axios-hooks';
 import { Loading } from 'components';
 import { PeopleType } from 'pages/Vote/types';
-import {
-  createContext,
-  Dispatch,
-  useCallback,
-  useEffect,
-  useReducer,
-} from 'react';
+import { createContext, Dispatch, useCallback, useReducer } from 'react';
 
 type GuessType = {
   guess: string;
@@ -104,10 +98,6 @@ const GameContextProvider: React.FC<GameContextProps> = ({ children }) => {
       });
     });
   }, [fetchRandomCriminal]);
-
-  useEffect(() => {
-    fetchNewCriminal();
-  }, [fetchNewCriminal]);
 
   if (criminalLoading) return <Loading />;
 
