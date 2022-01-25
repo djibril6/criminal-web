@@ -24,8 +24,8 @@ const Home = () => {
           <p>
             <strong>
               Nr369 is a TuTor platform with a Play & Learn concept for kids and
-              youngsters. Our mission is to raise environmental awareness
-              throughout interactive education.
+              youngsters. Our mission is to raise social and environmental
+              awareness through interactive education.
             </strong>
           </p>
           <p>
