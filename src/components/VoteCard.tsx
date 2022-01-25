@@ -80,7 +80,7 @@ const VoteCard: React.FC<VoteCardType> = ({
             color: '#000',
           }}
         >
-          {criminal.shortDescription}
+          {criminal.shortDescription || criminal.shortBrief}
         </Typography>
       </Box>
 
@@ -237,7 +237,7 @@ const VoteCard: React.FC<VoteCardType> = ({
             color: '#000',
           }}
         >
-          {criminal.shortDescription}
+          {criminal.shortDescription || criminal.shortBrief}
         </Typography>
 
         {state.isCodeVerified ? (
