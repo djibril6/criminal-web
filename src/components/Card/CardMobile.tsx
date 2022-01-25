@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
-    paddingTop: (props: StyleType) => (props.modal ? 10 : 0),
+    paddingTop: (props: StyleType) =>
+      props.modal ? 10 : props.dropdown ? 5 : 0,
     color: (props: StyleType) => props.color,
     fontWeight: 500,
     [theme.breakpoints.down('tablet')]: {
@@ -122,12 +123,29 @@ const useStyles = makeStyles((theme: Theme) => ({
           return 30;
         }
       },
-      marginTop: (props: StyleType) => (props.modal ? -5 : -7),
+      marginTop: (props: StyleType) =>
+        props.modal || props.dropdown ? -2 : -7,
     },
   },
   cardName: {
-    height: (props: StyleType) => (props.modal ? 25 : 40),
-    width: (props: StyleType) => (props.modal ? 25 : 40),
+    height: (props: StyleType) => {
+      if (props.modal) {
+        return 25;
+      } else if (props.dropdown) {
+        return 20;
+      } else {
+        return 40;
+      }
+    },
+    width: (props: StyleType) => {
+      if (props.modal) {
+        return 25;
+      } else if (props.dropdown) {
+        return 20;
+      } else {
+        return 40;
+      }
+    },
     [theme.breakpoints.down('tablet')]: {
       height: 20,
       width: 20,
@@ -173,7 +191,7 @@ const CardMobile: React.FC<CardType> = ({
         <Box className={styles.cardIcon}>{icon}</Box>
       </Box>
       <Box className={styles.middle}>
-        {!isMobile && !modal && (
+        {Boolean(!isMobile && !modal && !dropdown) && (
           <Typography
             variant="h1"
             style={{
@@ -187,7 +205,7 @@ const CardMobile: React.FC<CardType> = ({
             {person.name}
           </Typography>
         )}
-        {!isMobile && !modal && (
+        {Boolean(!isMobile && !modal && !dropdown) && (
           <Typography
             style={{
               color,
@@ -201,7 +219,7 @@ const CardMobile: React.FC<CardType> = ({
           </Typography>
         )}
         <img src={person.image} alt={person.name} className={styles.image} />
-        {!isMobile && !modal && (
+        {Boolean(!isMobile && !modal && !dropdown) && (
           <Typography
             variant="subtitle2"
             style={{

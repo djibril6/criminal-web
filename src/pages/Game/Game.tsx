@@ -23,9 +23,25 @@ const Game = () => {
     []
   );
 
+  const isGuessIncludeIn = useCallback(
+    (field: string) =>
+      field?.toLowerCase()?.split(' ')?.includes(guess?.toLowerCase()),
+    [guess]
+  );
+
   const isCorrectGuess = useMemo(
-    () => state.criminal.tags?.includes(guess),
-    [guess, state.criminal.tags]
+    () =>
+      isGuessIncludeIn(state.criminal.shortDescription!) ||
+      isGuessIncludeIn(state.criminal.description!) ||
+      isGuessIncludeIn(state.criminal.title!) ||
+      isGuessIncludeIn(state.criminal.shortBrief!),
+    [
+      isGuessIncludeIn,
+      state.criminal.description,
+      state.criminal.shortBrief,
+      state.criminal.shortDescription,
+      state.criminal.title,
+    ]
   );
 
   const handleGuessInput = useCallback(
@@ -95,8 +111,8 @@ const Game = () => {
         {/* The user submit his answer here*/}
         {(isOneCorrect || guessCounter >= 3) && (
           <div className={styles['answer-form']}>
-            {!isCorrectGuess && <button onClick={handleSkip}>Skip</button>}
-            {isCorrectGuess && (
+            {!isOneCorrect && <button onClick={handleSkip}>Skip</button>}
+            {isOneCorrect && (
               <>
                 <DropDownList />
                 <button onClick={handleSubmit}>Submit</button>

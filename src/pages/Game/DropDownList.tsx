@@ -13,6 +13,7 @@ import { ECategory } from 'pages/Vote/types';
 const useStyles = makeStyles((theme) => ({
   dropdownContainer: {
     display: 'grid',
+    width: '100%',
     gridTemplateColumns: 'repeat(4, 1fr)',
     gap: 10,
     marginTop: 10,
@@ -51,13 +52,15 @@ const DropDownList = () => {
   );
 
   return (
-    <div className={styles.dropdown}>
-      <button className={styles.dropbtn} onClick={handleDropdown}>
-        {currentGuess.name}
-        <span className={styles.droparrow}>
-          <FontAwesomeIcon icon={faChevronDown} />
-        </span>
-      </button>
+    <>
+      <div className={styles.dropdown}>
+        <button className={styles.dropbtn} onClick={handleDropdown}>
+          {currentGuess.name}
+          <span className={styles.droparrow}>
+            <FontAwesomeIcon icon={faChevronDown} />
+          </span>
+        </button>
+      </div>
       <Box
         className={
           dropdownOpen ? classes.dropdownContainer : classes.closedDropdown
@@ -85,7 +88,7 @@ const DropDownList = () => {
           )
         )}
       </Box>
-    </div>
+    </>
   );
 };
 
