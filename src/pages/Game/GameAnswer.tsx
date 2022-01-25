@@ -14,7 +14,7 @@ const GameAnswer = () => {
 
   useEffect(() => {
     if (state.guesses.length === 0) navigate('/home');
-  }, [state, navigate, state.correctGuesses]);
+  }, [state.guesses.length, navigate]);
 
   const handleNext = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -24,11 +24,11 @@ const GameAnswer = () => {
     dispatch({
       type: EGameStateAction.NEW_SESSION,
     });
-    if (state.criminal.id === state.selectedCriminalId) {
-      dispatch({
-        type: EGameStateAction.INCREMENT_CORRECT_GUESSES,
-      });
-    }
+    // if (state.criminal.id === state.selectedCriminalId) {
+    //   dispatch({
+    //     type: EGameStateAction.INCREMENT_CORRECT_GUESSES,
+    //   });
+    // }
     navigate('/game');
   };
 
