@@ -184,7 +184,7 @@ function Vote() {
 
   return (
     <>
-      <Box padding="20px">
+      <Box padding="70px 20px 20px 20px">
         <Tabs
           selectedTab={selectedTab}
           onTabSelected={onTabSelected}

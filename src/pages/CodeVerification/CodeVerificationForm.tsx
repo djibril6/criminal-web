@@ -90,7 +90,7 @@ const CodeVerificationForm = () => {
       <ModalPage open={openCard} onClose={handleCloseCard}>
         <MoreInfo
           title="Coming Soon!"
-          details="This feature will be lanched after the website quickstrat"
+          details="This feature will be available  after the website quickstrat"
         />
       </ModalPage>
       <Snackbar

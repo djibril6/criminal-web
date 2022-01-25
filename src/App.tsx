@@ -9,11 +9,15 @@ import {
   GameScore,
   VotePage,
 } from 'pages';
+
+import { NavBar } from './components';
+
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Routes>
         <Route path="/" />
         <Route path="menu" element={<Menu />} />

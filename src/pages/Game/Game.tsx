@@ -111,7 +111,9 @@ const Game = () => {
         {/* The user submit his answer here*/}
         {(isOneCorrect || guessCounter >= 3) && (
           <div className={styles['answer-form']}>
-            {!isOneCorrect && <button onClick={handleSkip}>Skip</button>}
+            {!isOneCorrect && (
+              <button onClick={handleSkip}>Skip & See Answer</button>
+            )}
             {isOneCorrect && (
               <>
                 <DropDownList />
