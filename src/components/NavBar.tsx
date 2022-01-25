@@ -90,8 +90,9 @@ const NavBar = () => {
           <Typography
             variant="h6"
             noWrap
-            sx={{ flexGrow: 1, marginLeft: 2 }}
+            sx={{ flexGrow: 1, marginLeft: 2, cursor: 'pointer' }}
             component="div"
+            onClick={() => handleClick('home')}
           >
             <img width="40px" height="40px" src={Logo} alt="" />
           </Typography>
