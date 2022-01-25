@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -20,6 +20,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import Logo from '../statics/assets/illustrations/Logo.svg';
+import { GameContext } from 'context';
 
 const drawerWidth = 240;
 
@@ -56,6 +57,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const NavBar = () => {
   const navigate = useNavigate();
   const theme = useTheme();
+  const { fetchNewCriminal } = useContext(GameContext);
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -67,6 +69,7 @@ const NavBar = () => {
   };
 
   const handleClick = (name: String) => {
+    handleDrawerClose();
     switch (name) {
       case 'home':
         navigate('/home');
@@ -75,6 +78,7 @@ const NavBar = () => {
         navigate('/vote');
         break;
       case 'play':
+        fetchNewCriminal();
         navigate('/game');
         break;
       default:

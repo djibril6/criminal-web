@@ -34,12 +34,14 @@ const Game = () => {
       isGuessIncludeIn(state.criminal.shortDescription!) ||
       isGuessIncludeIn(state.criminal.description!) ||
       isGuessIncludeIn(state.criminal.title!) ||
-      isGuessIncludeIn(state.criminal.shortBrief!),
+      isGuessIncludeIn(state.criminal.shortBrief!) ||
+      isGuessIncludeIn(state.criminal.tags.join(' ')),
     [
       isGuessIncludeIn,
       state.criminal.description,
       state.criminal.shortBrief,
       state.criminal.shortDescription,
+      state.criminal.tags,
       state.criminal.title,
     ]
   );
