@@ -1,7 +1,7 @@
 import { useCallback, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CodeDataType, VoteContext } from 'context/VoteContext';
-import { TopLeftCircle, TopRightCircle } from 'components';
+import { TopLeftCircle, TopRightCircle, ModalPage, MoreInfo } from 'components';
 import useAxios from 'axios-hooks';
 import styles from './css/CodeVerificationForm.module.css';
 import { Snackbar, Alert, CircularProgress } from '@mui/material';
@@ -12,6 +12,7 @@ const CodeVerificationForm = () => {
   const [code, setCode] = useState('');
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string>('');
+  const [openCard, setOpenCard] = useState(false);
 
   const [{ loading }, verifyCode] = useAxios<CodeDataType>(
     {},
@@ -60,15 +61,21 @@ const CodeVerificationForm = () => {
     setOpen(!open);
   }, [open]);
 
+  const onOpenCard = useCallback(() => {
+    setOpenCard(true);
+  }, []);
+
+  const handleCloseCard = useCallback(() => {
+    setOpenCard(false);
+  }, []);
+
   return (
     <div className={styles.page}>
       <div className={styles['form-wrapper']}>
         <form className={styles.form}>
           <h1>your voting code goes here</h1>
           <input type="text" placeholder="*****" onChange={codeChange} />
-          <a href="https://www.cr34.com" target="_blank" rel="noreferrer">
-            I don't have a voting code
-          </a>
+          <span onClick={onOpenCard}>I don't have a voting code</span>
           <button className={styles['verify-btn']} onClick={handleSubmit}>
             verify {loading && <CircularProgress size={15} />}
           </button>
@@ -80,6 +87,12 @@ const CodeVerificationForm = () => {
           </button>
         </form>
       </div>
+      <ModalPage open={openCard} onClose={handleCloseCard}>
+        <MoreInfo
+          title="Coming Soon!"
+          details="This feature will be lanched after the website quickstrat"
+        />
+      </ModalPage>
       <Snackbar
         open={open}
         autoHideDuration={3000}
